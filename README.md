@@ -1,4 +1,4 @@
-# Semester 6 - Blind Date.
+# Semester 6 - Individual Project (Reddit App)
 
 Turbo repo using yarn for cached and parall installed dependencies
 
