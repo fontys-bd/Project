@@ -1,0 +1,13 @@
+$ jest --detectOpenHandles
+PASS src/__tests__/server.test.ts
+  server
+    ✓ health check returns 200 (75 ms)
+    ✓ message endpoint says hello (11 ms)
+
+[0mGET /healthz [32m200[0m 1.919 ms - 11[0m
+[0mGET /message/jared [32m200[0m 0.513 ms - 25[0m
+Test Suites: 1 passed, 1 total
+Tests:       2 passed, 2 total
+Snapshots:   0 total
+Time:        2.023 s
+Ran all test suites.

@@ -1,0 +1,23 @@
+$ next build
+warn  - You have enabled experimental feature (outputFileTracingRoot) in next.config.js.
+warn  - Experimental features are not covered by semver, and may cause unexpected or broken application behavior. Use at your own risk.
+
+info  - Linting and checking validity of types...
+info  - Creating an optimized production build...
+info  - Compiled successfully
+info  - Collecting page data...
+info  - Generating static pages (0/3)
+info  - Generating static pages (3/3)
+info  - Finalizing page optimization...
+
+Route (pages)                              Size     First Load JS
+┌ ○ /                                      1.49 kB        74.5 kB
+└ ○ /404                                   181 B          73.2 kB
++ First Load JS shared by all              73 kB
+  ├ chunks/framework-243845dae5bb80aa.js   45.2 kB
+  ├ chunks/main-223c26d3eaa64346.js        26.8 kB
+  ├ chunks/pages/_app-03f04c30f397e7c8.js  196 B
+  └ chunks/webpack-9339c7e225139a0a.js     776 B
+
+○  (Static)  automatically rendered as static HTML (uses no initial props)
+

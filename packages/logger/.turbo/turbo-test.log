@@ -1,0 +1,15 @@
+$ jest
+PASS src/__tests__/log.test.ts
+  logger
+    ✓ prints a message (11 ms)
+
+  console.log
+    logger: hello
+
+      at console.<anonymous> (../../node_modules/jest-mock/build/index.js:845:25)
+
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.744 s
+Ran all test suites.
