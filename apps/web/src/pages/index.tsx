@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Button } from "ui";
 
 const API_HOST = process.env.NEXT_PUBLIC_API_HOST || "http://localhost:3001";
 
@@ -45,7 +44,7 @@ export default function Web() {
           value={name}
           onChange={onChange}
         ></input>
-        <Button type="submit">Submit</Button>
+        <button type="submit">Submit</button>
       </form>
       {error && (
         <div>
@@ -57,7 +56,7 @@ export default function Web() {
         <div>
           <h3>Greeting</h3>
           <p>{response.message}</p>
-          <Button onClick={onReset}>Reset</Button>
+          <button onClick={onReset}>Reset</button>
         </div>
       )}
     </div>
