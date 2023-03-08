@@ -22,6 +22,17 @@ services:
     networks:
       - app_network
 
+  profileservice:
+    container_name: profileservice
+    build:
+      context: .
+      dockerfile: ./apps/profileservice/Dockerfile
+    restart: always
+    ports:
+      - 3002:3002
+    networks:
+      - app_network
+
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname
 networks:
