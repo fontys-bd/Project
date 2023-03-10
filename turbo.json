@@ -5,7 +5,13 @@
     "build": {
       "outputs": ["dist/**", ".next/**", "public/dist/**"],
       "dependsOn": ["^build"],
-      "env": ["NEXT_PUBLIC_API_HOST"]
+      "env": [
+        "NEXT_PUBLIC_URL",
+        "UPLOAD_SERVICE_URL",
+        "USER_SERVICE_URL",
+        "POST_SERVICE_URL",
+        "COMMENT_SERVICE_URL"
+      ]
     },
     "test": {
       "outputs": ["coverage/**"],
@@ -15,6 +21,10 @@
       "dependsOn": ["^build"]
     },
     "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "start": {
       "cache": false,
       "persistent": true
     },
