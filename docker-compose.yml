@@ -11,22 +11,22 @@ services:
       - 3000:3000
     networks:
       - app_network
-  postservice:
-    container_name: postservice
+  post-service:
+    container_name: post-service
     build:
       context: .
-      dockerfile: ./apps/postservice/Dockerfile
+      dockerfile: ./apps/post-service/Dockerfile
     restart: always
     ports:
       - 3001:3001
     networks:
       - app_network
 
-  profileservice:
-    container_name: profileservice
+  profile-service:
+    container_name: profile-service
     build:
       context: .
-      dockerfile: ./apps/profileservice/Dockerfile
+      dockerfile: ./apps/profile-service/Dockerfile
     restart: always
     ports:
       - 3002:3002
