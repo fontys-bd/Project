@@ -9,7 +9,7 @@ RUN apk update
 WORKDIR /app
 RUN yarn global add turbo
 COPY . .
-RUN turbo prune --scope=profile-service --docker
+RUN turbo prune --scope=upload-service --docker
 
 # Add lockfile and package.json's of isolated subworkspace
 FROM node:alpine AS installer
@@ -34,7 +34,7 @@ COPY turbo.json turbo.json
 # ARG TURBO_TOKEN
 # ENV TURBO_TOKEN=$TURBO_TOKEN
 
-RUN yarn turbo run build --filter=profile-service...
+RUN yarn turbo run build --filter=upload-service...
 
 FROM node:alpine AS runner
 WORKDIR /app
@@ -45,4 +45,4 @@ RUN adduser --system --uid 1001 expressjs
 USER expressjs
 COPY --from=installer /app .
 
-CMD node apps/profile-service/dist/index.js
+CMD node apps/upload-service/dist/index.js
