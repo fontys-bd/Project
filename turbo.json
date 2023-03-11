@@ -1,16 +1,16 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
+  "globalDependencies": ["**/.env.local", "**/.env", ".env.**"],
   "pipeline": {
     "build": {
       "outputs": ["dist/**", ".next/**", "public/dist/**"],
       "dependsOn": ["^build"],
       "env": [
         "NEXT_PUBLIC_URL",
-        "UPLOAD_SERVICE_URL",
-        "USER_SERVICE_URL",
-        "POST_SERVICE_URL",
-        "COMMENT_SERVICE_URL"
+        "NEXT_PUBLIC_UPLOAD_SERVICE_URL",
+        "NEXT_PUBLIC_USER_SERVICE_URL",
+        "NEXT_PUBLIC_POST_SERVICE_URL",
+        "NEXT_PUBLIC_COMMENT_SERVICE_URL"
       ]
     },
     "test": {

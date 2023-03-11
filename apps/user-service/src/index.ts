@@ -2,7 +2,7 @@ import { userRouter } from "./routes/users";
 import { createServer } from "./server";
 import { log } from "logger";
 
-const port = process.env.USER_SERVICE_URL || 3002;
+const port = process.env.NEXT_PUBLIC_USER_SERVICE_URL || 3002;
 const server = createServer();
 
 server.listen(port, () => {

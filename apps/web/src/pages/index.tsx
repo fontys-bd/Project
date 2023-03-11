@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
-const API_HOST = process.env.POST_SERVICE_URL || "http://localhost:3003";
+const API_HOST =
+  process.env.NEXT_PUBLIC_POST_SERVICE_URL || "http://localhost:3003";
 
 export default function Web() {
   const [name, setName] = useState<string>("");

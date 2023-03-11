@@ -7,9 +7,9 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "dotenv -- turbo run build",
-    "start": "dotenv -- turbo run start",
-    "dev": "dotenv -- turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "dev": "turbo run dev",
     "clean": "turbo run clean",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo run lint",
