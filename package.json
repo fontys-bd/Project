@@ -20,9 +20,9 @@
   "dependencies": {},
   "devDependencies": {
     "eslint-config-custom": "*",
-    "prettier": "latest",
-    "turbo": "latest",
-    "dotenv-cli": "latest"
+    "prettier": "2.8.4",
+    "turbo": "1.8.3",
+    "dotenv-cli": "7.1.0"
   },
   "packageManager": "yarn@1.22.17",
   "engines": {
