@@ -3,7 +3,6 @@ require("dotenv").config({ path: "../../.env.local" });
 
 module.exports = {
   reactStrictMode: true,
-  transpilePackages: ["ui"],
   output: "standalone",
   experimental: {
     outputFileTracingRoot: path.join(__dirname, "../../"),
