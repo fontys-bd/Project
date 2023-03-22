@@ -1,18 +1,23 @@
 import { Router } from "express";
+import { ModifiedData } from "../service/index";
+import { ModifiedDataByID } from "../service/index";
 
 export const userRouter = () => {
   const router = Router();
 
   // Static routes
   router.get("/", (req, res) => {
-    return res.json({ user: "Big Jhon" });
+    const sample = ModifiedData();
+    console.log("routes", sample);
+    return res.json(sample);
   });
 
   // Dynamic routes
   router
     .route("/:id")
     .get((req, res) => {
-      return res.json({ user: req.params.id });
+      const sample = ModifiedDataByID(req.params.id);
+      return res.json(sample);
     })
     .post((req, res) => {
       return res.json({ user: req.params.id });
