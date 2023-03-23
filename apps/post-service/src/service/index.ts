@@ -1,14 +1,31 @@
-import { GetData } from "../integration/index";
-import { GetDataByID } from "../integration/index";
+import * as prisma from "../integration/index";
 
-export function ModifiedData() {
-  const sample = GetData();
-  console.log(sample);
-  return sample;
+export async function GetPosts() {
+  const posts = await prisma.GetPosts();
+
+  return posts;
 }
 
-export function ModifiedDataByID(id: string) {
-  const sample = GetDataByID(id);
-  console.log(sample);
-  return sample;
+export async function GetPostById(id: string) {
+  const post = await prisma.GetPostById(id);
+
+  return post;
+}
+
+export async function CreatePost(data: any) {
+  const post = await prisma.CreatePost(data);
+
+  return post;
+}
+
+export async function UpdatePosts(id: string, data: any) {
+  const post = await prisma.UpdatePost(id, data);
+
+  return post;
+}
+
+export async function DeletePosts(id: string) {
+  const post = await prisma.DeletePost(id);
+
+  return post;
 }

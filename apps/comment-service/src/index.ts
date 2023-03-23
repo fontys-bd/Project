@@ -1,4 +1,4 @@
-// import commentRouter from "./routes/commentRoutes";
+import { CommentRouter } from "./routes";
 import { createServer } from "./server";
 import { log } from "logger";
 
@@ -9,4 +9,4 @@ server.listen(port, () => {
   log(`api running on ${port}`);
 });
 
-// server.use("/comment", commentRouter);
+server.use("/comment", CommentRouter());
