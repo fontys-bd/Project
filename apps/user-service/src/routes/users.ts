@@ -1,37 +1,54 @@
 import { Router } from "express";
-import { ModifiedData } from "../service/index";
-import { ModifiedDataByID } from "../service/index";
+import * as service from "../service/index";
 
 export const userRouter = () => {
   const router = Router();
 
   // Static routes
-  router.get("/", (req, res) => {
-    const sample = ModifiedData();
-    console.log("routes", sample);
-    return res.json(sample);
+  router.get("/", async (req, res) => {
+    const users = await service.GetUsers();
+    if (users) {
+      return res.json(users);
+    } else {
+      return res.status(404).json({ message: "No users found" });
+    }
   });
 
   // Dynamic routes
   router
     .route("/:id")
-    .get((req, res) => {
-      const sample = ModifiedDataByID(req.params.id);
-      return res.json(sample);
+    .get(async (req, res) => {
+      const user = await service.GetUsersById(req.params.id);
+      console.log("user router :", user);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      return res.json(user);
     })
-    .post((req, res) => {
-      return res.json({ user: req.params.id });
+    .post(async (req, res) => {
+      const user = await service.CreateUser(req.body);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      return res.json(user);
     })
-    .put((req, res) => {
-      return res.json({ user: req.params.id });
+    .put(async (req, res) => {
+      const user = await service.UpdateUsers(req.params.id, req.body);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      return res.json(user);
     })
-    .delete((req, res) => {
-      return res.json({ user: req.params.id });
+    .delete(async (req, res) => {
+      const user = await service.DeleteUsers(req.params.id);
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      return res.json(user);
     });
 
   // Middleware for dynamic routes
   router.param("id", (req, res, next, id) => {
-    console.log("User with ID:", id);
     next();
   });
 
