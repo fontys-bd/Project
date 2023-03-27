@@ -11,6 +11,7 @@ services:
       - 3000:3000
     networks:
       - app_network
+
   upload-service:
     container_name: upload-service
     build:
@@ -21,6 +22,8 @@ services:
       - 3001:3001
     networks:
       - app_network
+    depends_on:
+      - rabbitmq
 
   user-service:
     container_name: user-service
@@ -32,6 +35,9 @@ services:
       - 3002:3002
     networks:
       - app_network
+    depends_on:
+      - rabbitmq
+
   post-service:
     container_name: post-service
     build:
@@ -42,6 +48,8 @@ services:
       - 3003:3003
     networks:
       - app_network
+    depends_on:
+      - rabbitmq
 
   comment-service:
     container_name: comment-service
@@ -51,6 +59,23 @@ services:
     restart: always
     ports:
       - 3004:3004
+    networks:
+      - app_network
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: "rabbitmq"
+    container_name: nodejs-rabbitmq-rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    volumes:
+      - "./.rabbitmq_data:/var/lib/rabbitmq/mnesia"
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin
     networks:
       - app_network
 
