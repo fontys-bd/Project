@@ -15,7 +15,8 @@
     "lint": "turbo run lint",
     "test": "turbo run test",
     "db:generate": "prisma generate",
-    "db:push": "prisma db push --skip-generate"
+    "db:push": "prisma db push --skip-generate",
+    "db:studio": "prisma studio"
   },
   "dependencies": {},
   "devDependencies": {
