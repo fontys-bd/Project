@@ -65,14 +65,14 @@ services:
       - rabbitmq
 
   rabbitmq:
-    image: "rabbitmq"
-    container_name: nodejs-rabbitmq-rabbitmq
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
     hostname: rabbitmq
     ports:
-      - "15672:15672"
-      - "5672:5672"
+      - 15672:15672
+      - 5672:5672
     volumes:
-      - "./.rabbitmq_data:/var/lib/rabbitmq/mnesia"
+      - ./.rabbitmq_data:/var/lib/rabbitmq/mnesia
     environment:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=admin
