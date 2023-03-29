@@ -2,3 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar{
+    width: 0.5rem;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: rgb(180, 180, 180);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover{
+    background-color: rgb(160, 160, 160);
+    cursor: pointer;
+}
+
