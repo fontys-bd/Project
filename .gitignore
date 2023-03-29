@@ -38,5 +38,5 @@ yarn-error.log*
 # vscode
 .vscode
 
-# Rabbitmq Files
+# RabbitMQ
 .rabbitmq_data
