@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "autoprefixer": "^10.4.14",
+    "feather-icons": "^4.29.0",
     "next": "13.2.3",
     "postcss": "^8.4.21",
     "prettier-plugin-tailwindcss": "^0.2.3",
