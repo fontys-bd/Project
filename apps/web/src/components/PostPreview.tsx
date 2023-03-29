@@ -25,26 +25,26 @@ export default function PostPreview(props: PostProps) {
           </h1>{/* //! REPLACE USER AND TIME WITH PROPS */}
         <div className="text-base my-3">{props.title}</div>
         <section className="flex flex-row w-full mb-3">
-          <>
+          <button className="flex">
             <AiOutlineLike style={{
               fontSize: "1.5rem"
             }} />
             <p className="mx-2">Like</p>
-          </>
-          <>
+          </button>
+          <button className="flex">
             <AiOutlineDislike style={{
               fontSize: "1.5rem",
               marginLeft: "0.5rem"
             }} />
             <p className="mx-2">Dislike</p>
-          </>
-          <>
+          </button>
+          <button className="flex">
             <IoBookmarkOutline style={{
               fontSize: "1.5rem",
               marginLeft: "32rem"
             }} />
             <p className="mx-2">Save</p>
-          </>
+          </button>
         </section>
       </article>
 
