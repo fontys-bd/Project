@@ -1,4 +1,4 @@
-import { userRouter } from "./routes/users";
+import { userRouter } from "./routes";
 import { createServer } from "./server";
 import { log } from "logger";
 
