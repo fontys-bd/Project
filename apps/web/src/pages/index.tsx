@@ -26,26 +26,22 @@ export default function Main() {
         alt="Logo"
         className="h-250 mb-4 w-80 rounded-lg"
       />
-
-      <form className="mb-4">
+      <form className="mb-4 grid gap-4">
         <input
-          type="text"
+          type="email"
           className="w-full rounded-md border border-gray-500 px-4 py-2 text-center"
           placeholder="Enter your email"
         />
-      </form>
 
-      <form className="mb-4">
         <input
-          type="text"
+          type="password"
           className="w-full rounded-md border border-gray-500 px-4 py-2 text-center"
           placeholder="Enter your password"
         />
       </form>
-
       <button
         onClick={handleClick}
-        className="rounded bg-pink-400 px-4 py-2 font-bold text-white hover:bg-pink-600"
+        className="w-full rounded bg-pink-400 px-4 py-2 font-bold text-white hover:bg-pink-600"
       >
         Login
       </button>
