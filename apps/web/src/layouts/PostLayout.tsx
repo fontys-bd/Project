@@ -1,5 +1,4 @@
 import Header from "@/components/navigation/Header";
-import Topics from "@/components/navigation/Topics";
 import Head from "next/head";
 
 interface BaseLayoutProps {

@@ -1,4 +1,4 @@
-import Post from "@/components/Post";
+import Post from "@/components/post/Post";
 import { useRouter } from "next/router";
 import PostLayout from "@/layouts/PostLayout";
 
@@ -6,9 +6,18 @@ export default function PostPage() {
   const router = useRouter();
   const { postID } = router.query;
   return (
-    <div>
-      <main className=" bg-slate-400">
-        <Post key={undefined} id={""} title={""} content={""}></Post>
+    <div className="shadow-lg">
+      <main>
+        <Post
+          key={undefined}
+          id={""}
+          title={""}
+          content={{}}
+          user={null}
+          createdAt={""}
+          updatedAt={""}
+          status={""}
+        ></Post>
       </main>
       <section className=" bg-slate-300">comments</section>
     </div>
