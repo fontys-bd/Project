@@ -1,5 +1,4 @@
 import Header from "@/components/navigation/Header";
-import Topics from "@/components/navigation/Topics";
 import Head from "next/head";
 
 interface BaseLayoutProps {
@@ -12,9 +11,9 @@ export default function PostLayout({ children, ...props }: BaseLayoutProps) {
       <Head>
         <title>Blind Date App</title>
       </Head>
-      <div className="flex h-screen flex-col">
+      <div className="flex h-screen flex-col bg-orange-100">
         <Header />
-        <div className=" mx-56 flex">
+        <div className=" mx-56 flex bg-white">
           <main className="w-full">{children}</main>
         </div>
       </div>
