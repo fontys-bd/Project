@@ -1,4 +1,4 @@
-import Post from "@/components/Post";
+import PostPreview from "@/components/PostPreview";
 import Base from "@/layouts/Base";
 
 export default function Home() {
@@ -7,7 +7,14 @@ export default function Home() {
       {Array(5)
         .fill(0)
         .map((_, i) => {
-          return <Post title={"Title Here"} content={"Content Here"} key={i} />;
+          return (
+            <PostPreview
+              id={i.toString()}
+              title={"Title Here"}
+              content={"Content Here"}
+              key={i}
+            />
+          );
         })}
     </>
   );
