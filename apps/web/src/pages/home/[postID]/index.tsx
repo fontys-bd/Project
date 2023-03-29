@@ -1,6 +1,7 @@
 import Post from "@/components/post/Post";
 import { useRouter } from "next/router";
 import PostLayout from "@/layouts/PostLayout";
+import Comment from "@/components/post/Comment";
 
 export default function PostPage() {
   const router = useRouter();
@@ -10,16 +11,17 @@ export default function PostPage() {
       <main>
         <Post
           key={undefined}
-          id={""}
+          id={postID as string}
           title={""}
           content={{}}
           user={null}
           createdAt={""}
           updatedAt={""}
           status={""}
-        ></Post>
+        />
       </main>
-      <section className=" bg-slate-300">comments</section>
+
+      <Comment />
     </div>
   );
 }

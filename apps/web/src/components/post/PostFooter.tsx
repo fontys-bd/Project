@@ -8,7 +8,7 @@ import {
 export default function PostFooter() {
   return (
     <>
-      <footer className="m-4 flex justify-between gap-4 bg-red-200 align-middle">
+      <footer className="m-4 flex justify-between gap-4 align-middle">
         <div className="flex justify-center gap-4 align-middle">
           <button className="hover:bg-blue-100">
             <FiThumbsUp
