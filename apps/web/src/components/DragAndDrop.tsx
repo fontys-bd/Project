@@ -1,9 +1,8 @@
-
 import Image from "next/image";
 export default function DragAndDrop() {
   return (
     <div className="pt-5">
-            {/* <div className="h-32 w-full overflow-hidden relative shadow-md border-2 items-center rounded-md cursor-pointer">
+      {/* <div className="h-32 w-full overflow-hidden relative shadow-md border-2 items-center rounded-md cursor-pointer">
               <p className=" flex items-center justify-center bg-white text-[12px] text-red-500">
                 {message}
               </p>
@@ -58,6 +57,6 @@ export default function DragAndDrop() {
                 })}
               </div>
             </div> */}
-          </div>
+    </div>
   );
 }
