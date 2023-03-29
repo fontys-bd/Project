@@ -4,7 +4,7 @@ import { BsSliders } from "react-icons/bs"
 export default function HomeFilters() {
     const filters = ["Most popular", "Newest", "Active", "Urgent", "Closed"]
     return (
-        <section className="mx-5 my-2">
+        <main className="mx-5 my-2">
             <div className="flex flex-row items-center">
                 <section className="flex flex-row">
                     <BsSliders style={{
@@ -13,14 +13,11 @@ export default function HomeFilters() {
                     }} />
                     <div>Sort by:</div>
                 </section>
-                {filters.map((filter) => {
-                    if (filter === "Most popular") {
-                        return <HomeFilterButton>{filter}</HomeFilterButton>
-                    }
-                    return <HomeFilterButton>{filter}</HomeFilterButton>
+                {filters.map((filter, key) => {
+                    return <HomeFilterButton key={key}>{filter}</HomeFilterButton>
                 }
                 )}
             </div>
-        </section>
+        </main>
     )
 }
