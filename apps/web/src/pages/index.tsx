@@ -45,7 +45,7 @@ export default function Main() {
 
       <button
         onClick={handleClick}
-        className="rounded bg-pink-400 py-2 px-4 font-bold text-white hover:bg-pink-600"
+        className="rounded bg-pink-400 px-4 py-2 font-bold text-white hover:bg-pink-600"
       >
         Login
       </button>
