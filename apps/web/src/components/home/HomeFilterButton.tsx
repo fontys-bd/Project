@@ -1,8 +1,16 @@
-export default function HomeFilterButton(filter: any, selected: boolean) { //! CHANGE FILTER TYPE
-    return (
-        <>
-            {selected ? <button className="mx-2 bg-transparent hover:bg-gray-400 p-1 px-3 rounded-2xl">{filter.children}</button> : <button className="mx-2 bbg-gray-400 p-1 px-3 rounded-2xl">{filter.children}</button>}
-        </>
-
-    );
+export default function HomeFilterButton(filter: any, selected: boolean) {
+  //! CHANGE FILTER TYPE
+  return (
+    <>
+      {selected ? (
+        <button className="mx-2 rounded-2xl bg-transparent p-1 px-3 hover:bg-gray-400">
+          {filter.children}
+        </button>
+      ) : (
+        <button className="bbg-gray-400 mx-2 rounded-2xl p-1 px-3">
+          {filter.children}
+        </button>
+      )}
+    </>
+  );
 }

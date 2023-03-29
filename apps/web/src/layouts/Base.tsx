@@ -19,7 +19,7 @@ export default function BaseLayout({ children, ...props }: BaseLayoutProps) {
             <Topics />
           </aside>
           <main className="col-span-4">{children}</main>
-          <aside className="col-span-1 text-center m-2 text-lg">Saved</aside>
+          <aside className="col-span-1 m-2 text-center text-lg">Saved</aside>
         </div>
       </div>
     </>
