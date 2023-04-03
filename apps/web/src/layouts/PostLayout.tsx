@@ -11,9 +11,9 @@ export default function PostLayout({ children, ...props }: BaseLayoutProps) {
       <Head>
         <title>Blind Date App</title>
       </Head>
-      <div className="flex h-screen flex-col bg-orange-100">
+      <div className="flex h-screen flex-col bg-slate-50">
         <Header />
-        <div className=" mx-56 flex bg-white">
+        <div className="mx-0 flex bg-white md:mx-56">
           <main className="w-full">{children}</main>
         </div>
       </div>

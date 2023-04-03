@@ -49,6 +49,7 @@ export default function Post({ id, key, title, content }: PostProps) {
           src={
             "https://fastly.picsum.photos/id/64/4326/2884.jpg?hmac=9_SzX666YRpR_fOyYStXpfSiJ_edO3ghlSRnH2w09Kg"
           }
+          priority
           alt={"Image of a person"}
           width={500}
           height={400}
