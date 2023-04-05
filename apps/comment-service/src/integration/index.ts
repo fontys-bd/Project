@@ -19,6 +19,22 @@ export async function GetCommentById(id: string) {
   return comment;
 }
 
+export async function GetCommentsByPostId(id: string) {
+  const comments = await prisma.comment
+    .findMany({
+      where: {
+        postID: id,
+      },
+      include: {
+        Like: true,
+      },
+    })
+    .catch(() => {
+      return null;
+    });
+  return comments;
+}
+
 export async function CreateComment(data: any) {
   const comment = await prisma.comment
     .create({

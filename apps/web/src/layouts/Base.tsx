@@ -14,7 +14,7 @@ export default function BaseLayout({ children, ...props }: BaseLayoutProps) {
       </Head>
       <div className="flex h-screen flex-col">
         <Header />
-        <div className="grid grid-cols-6 overflow-hidden bg-gray-50">
+        <div className="grid grid-cols-6 overflow-hidden">
           <aside className="col-span-1 m-2 text-lg">
             <Topics />
           </aside>

@@ -14,6 +14,15 @@ export const CommentRouter = () => {
     }
   });
 
+  router.get("/byPostID/:id", async (req, res) => {
+    const comments = await service.GetCommentsByPostId(req.params.id);
+    if (comments) {
+      return res.json(comments);
+    } else {
+      return res.status(404).json({ message: "No Comments Found" });
+    }
+  });
+
   // Dynamic routes
   router
     .route("/:id")
