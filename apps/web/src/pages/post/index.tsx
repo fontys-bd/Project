@@ -1,15 +1,31 @@
-import DragAndDrop from "@/components/DragAndDrop";
 import PostLayout from "@/layouts/PostLayout";
 import React, { useState } from "react";
-
+import post from "src/utils/post";
 import Image from "next/image";
 export default function PostPage() {
   const [files, setFile] = useState<File[]>([]);
   const [message, setMessage] = useState<string>("");
-  const [anonymously, setAnonymously] = useState(false);
+  const [anonymous, setAnonymous] = useState(false);
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+  const [picture_desc, setImageDescription] = useState<string>("");
 
   const toggleAnonymously = () => {
-    setAnonymously(!anonymously);
+    setAnonymous(!anonymous);
+  };
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>
+  ): Promise<void> => {
+    e.preventDefault();
+    await post("http://localhost:3003/post/", {
+      title,
+      content,
+      picture_desc,
+      anonymous,
+      status: "ACTIVE",
+    }).then(async (result) => {
+      console.log(result);
+    });
   };
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,39 +48,45 @@ export default function PostPage() {
   };
 
   return (
-    <div className="">
+    <article>
       <main>
         <p className="py-7 text-center text-2xl ">CREATE POST</p>
         <hr className=" border border-black" />
-        <form className="pt-3" action="" method="post">
-          <div>
+        <form className="pt-3" onSubmit={handleSubmit} method="post">
+          <section>
             <input
               placeholder="Title"
+              onChange={(e) => {
+                setTitle(e.target.value);
+              }}
               type="text"
               name="title"
               className="h-10 w-full bg-gray-200 placeholder:px-2 placeholder:text-xl placeholder:text-slate-600"
             />
-          </div>
-          <div className="pt-5">
+          </section>
+          <section className="pt-5">
             <textarea
               rows={3}
+              onChange={(e) => {
+                setContent(e.target.value);
+              }}
               className="h-40 w-full resize-none bg-gray-200 placeholder:px-2 placeholder:text-xl placeholder:text-slate-600"
               placeholder="Description"
             />
-          </div>
-          <div className="flex  ">
-            <div className="basis-3/4 ">
+          </section>
+          <section className="flex  ">
+            <section className="basis-3/4 ">
               <p className="mb-1 flex items-center justify-center bg-white text-[12px] text-red-500">
                 {message}
               </p>
-              <div className="relative h-32 w-full cursor-pointer items-center overflow-hidden ">
+              <section className="relative h-32 w-full cursor-pointer items-center overflow-hidden ">
                 <input
                   type="file"
                   onChange={handleFile}
                   className="absolute z-10 h-full w-full opacity-0"
                   name="files[]"
                 />
-                <div className="z-1 absolute top-0 flex h-full w-full items-center justify-center bg-slate-50 ">
+                <section className="z-1 absolute top-0 flex h-full w-full items-center justify-center bg-slate-50 ">
                   <div className="flex flex-col">
                     <p className="text-xl">
                       Drag images here or click to select files
@@ -74,9 +96,9 @@ export default function PostPage() {
                       exceed 5mb
                     </p>
                   </div>
-                </div>
-              </div>
-              <div className="mt-2 flex flex-wrap ">
+                </section>
+              </section>
+              <section className="mt-2 flex flex-wrap ">
                 {files.map((file, key) => {
                   return (
                     <div
@@ -106,13 +128,16 @@ export default function PostPage() {
                     </div>
                   );
                 })}
-              </div>
-            </div>
-          </div>
+              </section>
+            </section>
+          </section>
 
           <div className="pt-5">
             <input
               placeholder="Image description"
+              onChange={(e) => {
+                setImageDescription(e.target.value);
+              }}
               type="text"
               name="imageDescription"
               className="h-10 w-full bg-gray-200 placeholder:px-2 placeholder:text-xl placeholder:text-slate-600"
@@ -125,7 +150,7 @@ export default function PostPage() {
                   <input
                     type="checkbox"
                     className="peer sr-only"
-                    checked={anonymously}
+                    checked={anonymous}
                   />
                   <div
                     onClick={() => {
@@ -144,7 +169,7 @@ export default function PostPage() {
           </button>
         </form>
       </main>
-    </div>
+    </article>
   );
 }
 

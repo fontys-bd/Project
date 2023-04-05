@@ -14,3 +14,4 @@ const fetcher = async (url) => {
   return res.json();
 };
 export default fetcher;
+

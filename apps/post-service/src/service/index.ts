@@ -13,7 +13,15 @@ export async function GetPostById(id: string) {
 }
 
 export async function CreatePost(data: any) {
-  const post = await prisma.CreatePost(data);
+  const now = new Date();
+  const postData = {
+    ...data,
+    created_at: now,
+    updated_at: now,
+    userID: "642abeeb6e7160c651969049",
+  };
+
+  const post = await prisma.CreatePost({ data: postData });
 
   return post;
 }

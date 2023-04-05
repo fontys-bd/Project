@@ -20,13 +20,10 @@ export async function GetPostById(id: string) {
 }
 
 export async function CreatePost(data: any) {
-  const post = await prisma.post
-    .create({
-      data: data,
-    })
-    .catch(() => {
-      return null;
-    });
+  const post = await prisma.post.create(data).catch((e: Error) => {
+    console.log("error", e);
+    return null;
+  });
   return post;
 }
 
