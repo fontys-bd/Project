@@ -8,11 +8,11 @@ export default function Home() {
       <section className="bg-gray-200 p-2">
         <HomeFilters />
         {Array(5)
-          .fill(0)
+          .fill("642aba30da8ca3fc6e50d70b")
           .map((_, i) => {
             return (
               <PostPreview
-                id={i.toString()}
+                id={_}
                 title={
                   "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum?"
                 }

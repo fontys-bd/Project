@@ -12,6 +12,12 @@ export async function GetCommentById(id: string) {
   return comment;
 }
 
+export async function GetCommentsByPostId(id: string) {
+  const comments = await prisma.GetCommentsByPostId(id);
+
+  return comments;
+}
+
 export async function CreateComment(data: any) {
   const comment = await prisma.CreateComment(data);
 

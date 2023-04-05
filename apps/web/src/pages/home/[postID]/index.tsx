@@ -8,7 +8,7 @@ export default function PostPage() {
   const { postID } = router.query;
   return (
     <div className="shadow-lg">
-      <main>
+      <section>
         <Post
           key={undefined}
           id={postID as string}
@@ -19,7 +19,7 @@ export default function PostPage() {
           updatedAt={""}
           status={""}
         />
-      </main>
+      </section>
 
       <Comment />
     </div>
