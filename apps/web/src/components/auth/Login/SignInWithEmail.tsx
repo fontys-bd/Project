@@ -1,16 +1,19 @@
-import { auth } from "../../../utils/firebase.js";
+import { _auth } from "../../../utils/firebase.js";
 import { useState } from "react";
+import { useRouter } from "next/router.js";
 
 export function SignInWithEmail() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
 
   async function signInWithEmail() {
-    await auth
+    await _auth
       .signInWithEmailAndPassword(email, password)
       .then(async (authCreds) => {
         const id_token = await authCreds.user?.getIdToken();
         console.log(id_token);
+        router.push("/home");
       })
       .catch((error) => {
         const errorCode = error.code;
