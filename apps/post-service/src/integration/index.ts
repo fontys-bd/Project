@@ -8,15 +8,15 @@ export async function GetPosts() {
 
   for (const post of res) {
     let user = "Anonymous";
-    
+
     if (!post.anonymous) {
       const result = await prisma.user.findUnique({
         where: {
           id: post.userID,
         },
         select: {
-          username: true
-        }
+          username: true,
+        },
       });
 
       if (result) {
@@ -24,12 +24,23 @@ export async function GetPosts() {
       }
     }
 
-    const postData = new PostDTO(post.id, post.anonymous, post.title, post.content, post.status, post.created_at, post.updated_at, user, post.picture, post.picture_desc, post.deleted_at, post.topic);
-
-    posts.push(
-      postData
+    const postData = new PostDTO(
+      post.id,
+      post.anonymous,
+      post.title,
+      post.content,
+      post.status,
+      post.created_at,
+      post.updated_at,
+      user,
+      post.picture,
+      post.picture_desc,
+      post.deleted_at,
+      post.topic
     );
-  };
+
+    posts.push(postData);
+  }
   return posts;
 }
 

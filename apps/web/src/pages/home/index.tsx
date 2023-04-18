@@ -1,8 +1,8 @@
 import PostPreview from "@/components/PostPreview";
 import Base from "@/layouts/Base";
 import HomeFilters from "@/components/home/HomeFilters";
-import { Post } from "../../types/post"
-import { fetchPosts } from '../../api/posts';
+import { Post } from "../../types/post";
+import { fetchPosts } from "../../api/posts";
 
 interface HomeProps {
   posts: Post[];
@@ -37,4 +37,4 @@ export const getStaticProps = async () => {
   return {
     props: { posts },
   };
-}
+};
