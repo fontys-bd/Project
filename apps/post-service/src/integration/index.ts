@@ -1,8 +1,35 @@
+import { PostDTO } from "../types/PostDTO";
 import { PrismaClient } from "database";
 const prisma = new PrismaClient();
 
 export async function GetPosts() {
-  const posts = await prisma.post.findMany();
+  const res = await prisma.post.findMany();
+  const posts: PostDTO[] = [];
+
+  for (const post of res) {
+    let user = "Anonymous";
+    
+    if (!post.anonymous) {
+      const result = await prisma.user.findUnique({
+        where: {
+          id: post.userID,
+        },
+        select: {
+          username: true
+        }
+      });
+
+      if (result) {
+        user = result.username;
+      }
+    }
+
+    const postData = new PostDTO(post.id, post.anonymous, post.title, post.content, post.status, post.created_at, post.updated_at, user, post.picture, post.picture_desc, post.deleted_at, post.topic);
+
+    posts.push(
+      postData
+    );
+  };
   return posts;
 }
 
