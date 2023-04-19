@@ -30,9 +30,7 @@ export default function Home({ posts }: HomeProps) {
               created_at={post.created_at}
               status={post.status}
             />
-          ))
-        }
-
+          ))}
       </section>
     </main>
   );

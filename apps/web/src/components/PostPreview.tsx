@@ -29,7 +29,9 @@ export default function PostPreview(props: PostProps) {
   const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
   // calculate number of months that have passed
-  const monthsDiff = (currentDate.getFullYear() - postDate.getFullYear()) * 12 + (currentDate.getMonth() - postDate.getMonth());
+  const monthsDiff =
+    (currentDate.getFullYear() - postDate.getFullYear()) * 12 +
+    (currentDate.getMonth() - postDate.getMonth());
 
   // calculate number of years that have passed
   const yearsDiff = currentDate.getFullYear() - postDate.getFullYear();
@@ -59,15 +61,16 @@ export default function PostPreview(props: PostProps) {
           />
           <p className="ml-1 mr-3 text-sm font-bold">{props.username}</p>
           <span className="text-gray-500">{displayDate}</span>
-          <span className="ml-auto text-lg flex flex-row">
+          <span className="ml-auto flex flex-row text-lg">
             <p className="mt-1 flex items-center text-xs">Status:</p>
             <p
-              className={`px-2 ${props.status === "ACTIVE"
-                ? "text-green-600"
-                : props.status === "URGENT"
+              className={`px-2 ${
+                props.status === "ACTIVE"
+                  ? "text-green-600"
+                  : props.status === "URGENT"
                   ? "text-yellow-500"
                   : "text-red-600"
-                } `}
+              } `}
             >
               {props.status}
             </p>
