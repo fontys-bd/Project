@@ -22,7 +22,7 @@ export async function CreatePost(data: CreatePostSchema) {
     userID: "642abeeb6e7160c651969049",
   };
 
-  const post = await prisma.CreatePost({ data: postData });
+  const post = await prisma.CreatePost(postData);
 
   return post;
 }

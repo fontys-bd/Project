@@ -1,3 +1,4 @@
+import { CreatePostSchema } from "../types/CreatePostSchema";
 import { PostSchema } from "../types/PostSchema";
 import { PrismaClient } from "database";
 const prisma = new PrismaClient();
@@ -57,8 +58,8 @@ export async function GetPostById(id: string) {
   return post;
 }
 
-export async function CreatePost(data: any) {
-  const post = await prisma.post.create(data).catch((e: Error) => {
+export async function CreatePost(data: CreatePostSchema) {
+  const post = await prisma.post.create({ data: data }).catch((e: Error) => {
     console.log("error", e);
     return null;
   });
