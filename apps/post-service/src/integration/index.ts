@@ -1,8 +1,46 @@
+import { PostSchema } from "../types/PostSchema";
 import { PrismaClient } from "database";
 const prisma = new PrismaClient();
 
 export async function GetPosts() {
-  const posts = await prisma.post.findMany();
+  const res = await prisma.post.findMany();
+  const posts: PostSchema[] = [];
+
+  for (const post of res) {
+    let user = "Anonymous";
+
+    if (!post.anonymous) {
+      const result = await prisma.user.findUnique({
+        where: {
+          id: post.userID,
+        },
+        select: {
+          username: true,
+        },
+      });
+
+      if (result) {
+        user = result.username;
+      }
+    }
+
+    const postData: PostSchema = {
+      id: post.id,
+      anonymous: post.anonymous,
+      title: post.title,
+      content: post.content,
+      status: post.status,
+      created_at: post.created_at,
+      updated_at: post.updated_at,
+      authorUsername: user,
+      picture: post.picture,
+      picture_desc: post.picture_desc,
+      deleted_at: post.deleted_at,
+      topic: post.topic,
+    };
+
+    posts.push(postData);
+  }
   return posts;
 }
 
