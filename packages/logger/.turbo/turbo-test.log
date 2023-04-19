@@ -1,7 +1,7 @@
 $ jest
 PASS src/__tests__/log.test.ts
   logger
-    ✓ prints a message (11 ms)
+    ✓ prints a message (22 ms)
 
   console.log
     logger: hello
@@ -11,5 +11,5 @@ PASS src/__tests__/log.test.ts
 Test Suites: 1 passed, 1 total
 Tests:       1 passed, 1 total
 Snapshots:   0 total
-Time:        1.744 s
+Time:        5.401 s
 Ran all test suites.
