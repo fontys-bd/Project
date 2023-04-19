@@ -1,4 +1,5 @@
 import * as prisma from "../integration/index";
+import { CreatePostSchema } from "../types/CreatePostSchema";
 
 export async function GetPosts() {
   const posts = await prisma.GetPosts();
@@ -12,8 +13,16 @@ export async function GetPostById(id: string) {
   return post;
 }
 
-export async function CreatePost(data: any) {
-  const post = await prisma.CreatePost(data);
+export async function CreatePost(data: CreatePostSchema) {
+  const now = new Date();
+  const postData: CreatePostSchema = {
+    ...data,
+    created_at: now,
+    updated_at: now,
+    userID: "642abeeb6e7160c651969049",
+  };
+
+  const post = await prisma.CreatePost(postData);
 
   return post;
 }
