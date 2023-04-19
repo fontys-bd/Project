@@ -32,7 +32,7 @@ Home.GetLayout = function GetLayout(page: React.ReactNode) {
   return <Base>{page}</Base>;
 };
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const posts = await fetchPosts();
   return {
     props: { posts },
