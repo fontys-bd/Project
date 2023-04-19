@@ -36,7 +36,7 @@ export async function GetPosts() {
       picture: post.picture,
       picture_desc: post.picture_desc,
       deleted_at: post.deleted_at,
-      topic: post.topic
+      topic: post.topic,
     };
 
     posts.push(postData);

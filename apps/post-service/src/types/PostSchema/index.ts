@@ -11,4 +11,4 @@ export type PostSchema = {
   deleted_at?: Date | null;
   topic?: string | null;
   authorUsername: string;
-}
+};
