@@ -49,7 +49,7 @@ export default function PostPreview(props: PostProps) {
   }
 
   return (
-    <Link href={`/home/ ${props.id}`}>
+    <Link href={`/home/${props.id}`}>
       <article className="mx-3 mb-3 rounded-xl border border-solid border-gray-200 bg-white px-5 transition ease-in-out hover:border-gray-100 hover:shadow-lg">
         <h1 className="mt-2 flex items-center text-xs">
           Posted by:
@@ -78,7 +78,7 @@ export default function PostPreview(props: PostProps) {
         </h1>
         <div className="my-3 text-base">{props.title}</div>
         <section className="mb-3 flex w-full flex-row font-semibold">
-          <button className="flex items-center">
+          <button className="flex items-center" aria-label="Like Button">
             <AiOutlineLike
               style={{
                 fontSize: "1.5rem",
@@ -86,7 +86,7 @@ export default function PostPreview(props: PostProps) {
             />
             <p className="mx-1">Like</p>
           </button>
-          <button className="flex items-center">
+          <button className="flex items-center" aria-label="Dislike Button">
             <AiOutlineDislike
               style={{
                 fontSize: "1.5rem",
@@ -95,7 +95,10 @@ export default function PostPreview(props: PostProps) {
             />
             <p className="mx-1">Dislike</p>
           </button>
-          <button className="ml-auto flex items-center">
+          <button
+            className="ml-auto flex items-center"
+            aria-label="Save Button"
+          >
             <IoBookmarkOutline
               style={{
                 fontSize: "1.5rem",

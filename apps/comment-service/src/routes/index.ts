@@ -19,7 +19,7 @@ export const CommentRouter = () => {
     if (comments) {
       return res.json(comments);
     } else {
-      return res.status(404).json({ message: "No Comments Found" });
+      return res.status(404).end();
     }
   });
 
