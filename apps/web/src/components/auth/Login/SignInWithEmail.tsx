@@ -1,4 +1,5 @@
-import { _auth } from "../../../utils/firebase.js";
+import { auth } from "@/utils/firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useRouter } from "next/router.js";
 
@@ -7,12 +8,11 @@ export function SignInWithEmail() {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
+  // TODO: Proper error handling https://firebase.google.com/docs/auth/web/google-signin#web-version-9_2
   async function signInWithEmail() {
-    await _auth
-      .signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then(async (authCreds) => {
         const id_token = await authCreds.user?.getIdToken();
-        console.log(id_token);
         router.push("/home");
       })
       .catch((error) => {
