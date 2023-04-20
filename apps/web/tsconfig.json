@@ -8,6 +8,7 @@
   ],
   "exclude": ["node_modules"],
   "compilerOptions": {
+    "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["src/components/*"],
@@ -15,6 +16,7 @@
       "@/images/*": ["src/public/images/*"],
       "@/hooks/*": ["src/hooks/*"],
       "@/types/*": ["src/types/*"],
+      "@/utils/*": ["src/utils/*"],
     }
   }
 }
