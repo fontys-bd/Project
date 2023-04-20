@@ -1,4 +1,4 @@
-import { auth } from "@/utils/firebase.ts";
+import { auth } from "@/utils/firebase";
 import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 
 import Image from "next/image";

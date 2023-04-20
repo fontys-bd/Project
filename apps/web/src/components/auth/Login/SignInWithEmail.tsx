@@ -1,4 +1,4 @@
-import { auth } from "@/utils/firebase.ts";
+import { auth } from "@/utils/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { useRouter } from "next/router.js";

@@ -7,13 +7,14 @@ import { SingInWithGoogle } from "./SignInWithGoogle";
 export default function Login() {
   return (
     <>
-      <style jsx global>{`
-        body {
-          background-image: url("/background.png");
-          background-size: cover;
-        }
-      `}</style>
-
+      <Image
+        src={"/background.png"}
+        quality={50}
+        fill
+        sizes="100vw"
+        style={{ zIndex: -40, objectFit: "cover" }}
+        alt={"Background image"}
+      />
       <Image
         src={"/blind_date_logo(1).png"}
         alt={"Logo"}
