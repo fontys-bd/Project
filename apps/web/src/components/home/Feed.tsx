@@ -1,41 +1,46 @@
-import { GetPosts } from "@/hooks/GetPosts";
-import { Post } from "src/types/post";
+import { Post } from "src/types/postSchema";
 import PostPreview from "@/components/PostPreview";
+import useSWRInfinite from "swr/infinite";
+import { fetcher } from "@/utils/fetcher";
+
+const PAGE_SIZE = 10;
 
 export default function Feed() {
-  const { data: posts, isLoading, error } = GetPosts();
+  const { data, mutate, size, setSize, isValidating, isLoading } =
+    useSWRInfinite(
+      (index) =>
+        `http://localhost:3003/post?per_page=${PAGE_SIZE}&page=${index + 1}`,
+      fetcher
+    );
 
-  if (error) return <div>Error: {error.message}</div>;
-  if (isLoading || !posts) return <div>Loading...</div>;
+  const posts = data ? [].concat(...data) : [];
+  const isLoadingMore =
+    isLoading || (size > 0 && data && typeof data[size - 1] === "undefined");
+  const isEmpty = data?.[0]?.length === 0;
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
+  const isRefreshing = isValidating && data && data.length === size;
+
+  if (isRefreshing) return <p>Refreshing...</p>;
+  if (isLoading && !isLoadingMore) return <p>Loading...</p>;
+  if (isEmpty) return <p>No posts found</p>;
 
   return (
     <>
-      {posts
-        .sort(
-          (
-            a: { created_at: string | number | Date },
-            b: { created_at: string | number | Date }
-          ) => {
-            //Sort posts based on date created - most recent posts are at the top
-            const dateA = new Date(a.created_at);
-            const dateB = new Date(b.created_at);
-
-            return dateB.getTime() - dateA.getTime();
-          }
-        )
-        .map((post: Post) => {
-          console.log(post.id);
+      {posts?.map((post: { data: any; nextPageCursor: Date }) => {
+        return post?.data?.map((post: Post) => {
           return (
             <PostPreview
               key={post.id}
               id={post.id}
               title={post.title}
-              username={post.authorUsername}
+              username={post.author ? post.author.username : "Anonymous"}
               created_at={post.created_at}
               status={post.status}
             />
           );
-        })}
+        });
+      })}
     </>
   );
 }

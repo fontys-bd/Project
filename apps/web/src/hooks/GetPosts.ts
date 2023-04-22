@@ -1,5 +1,5 @@
 import { fetcher } from "../utils/fetcher";
-import { Post } from "../types/post";
+import { Post } from "../types/postSchema";
 import useSWR from "swr";
 
 export function GetPosts() {

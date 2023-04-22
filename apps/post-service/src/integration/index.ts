@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { CreatePostSchema } from "../types/CreatePostSchema";
 import { PostSchema } from "../types/PostSchema";
 import { PrismaClient } from "database";
@@ -43,6 +44,27 @@ export async function GetPosts() {
     posts.push(postData);
   }
   return posts;
+}
+
+export async function GetPostsPaginated(req: any) {
+  const { take = 10, cursor } = req.query;
+  const takeValue = parseInt(take, 10);
+
+  console.log(takeValue);
+
+  try {
+    const posts = await prisma.post.findMany({
+      take: takeValue,
+      cursor: cursor ? { created_at: new Date(cursor) } : undefined,
+      where: { deleted_at: null },
+      orderBy: { created_at: "desc" },
+    });
+
+    return posts;
+  } catch (error) {
+    console.error(error);
+    return error;
+  }
 }
 
 export async function GetPostById(id: string) {

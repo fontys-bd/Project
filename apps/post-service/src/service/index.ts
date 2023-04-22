@@ -1,8 +1,15 @@
+import { Request } from "express";
 import * as prisma from "../integration/index";
 import { CreatePostSchema } from "../types/CreatePostSchema";
 
 export async function GetPosts() {
   const posts = await prisma.GetPosts();
+
+  return posts;
+}
+
+export async function GetPostsPaginated(req: Request) {
+  const posts = await prisma.GetPostsPaginated(req);
 
   return posts;
 }
@@ -27,13 +34,13 @@ export async function CreatePost(data: CreatePostSchema) {
   return post;
 }
 
-export async function UpdatePosts(id: string, data: any) {
+export async function UpdatePost(id: string, data: any) {
   const post = await prisma.UpdatePost(id, data);
 
   return post;
 }
 
-export async function DeletePosts(id: string) {
+export async function DeletePost(id: string) {
   const post = await prisma.DeletePost(id);
 
   return post;
