@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+  labels:
+    app: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        io.kompose.network/app-network: "true"
+        app: web
+    spec:
+      containers:
+        - image: stassig/project-web
+          name: web
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+  labels:
+    app: web-service
+spec:
+  type: LoadBalancer
+  ports:
+    - name: "3000"
+      port: 3000
+      targetPort: 3000
+      nodePort: 30100
+  selector:
+    app: web

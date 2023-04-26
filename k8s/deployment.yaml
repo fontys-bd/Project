@@ -1,0 +1,242 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: app-network
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              io.kompose.network/app-network: "true"
+  podSelector:
+    matchLabels:
+      io.kompose.network/app-network: "true"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: comment-service-deployment
+  labels:
+    app: comment-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: comment-service
+  template:
+    metadata:
+      labels:
+        io.kompose.network/app-network: "true"
+        app: comment-service
+    spec:
+      containers:
+        - image: stassig/project-comment-service
+          name: comment-service
+          ports:
+            - containerPort: 3004
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: comment-service
+  labels:
+    app: comment-service-k8s
+spec:
+  type: LoadBalancer
+  ports:
+    - name: "3004"
+      port: 3004
+      targetPort: 3004
+      nodePort: 30333
+  selector:
+    app: comment-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-service-deployment
+  labels:
+    app: post-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-service
+  template:
+    metadata:
+      labels:
+        io.kompose.network/app-network: "true"
+        app: post-service
+    spec:
+      containers:
+        - image: stassig/project-post-service
+          name: post-service
+          ports:
+            - containerPort: 3003
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: post-service
+  labels:
+    app: post-service-k8s
+spec:
+  ports:
+    - name: "3003"
+      port: 3003
+      targetPort: 3003
+  selector:
+    app: post-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: upload-service-deployment
+  labels:
+    app: upload-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: upload-service
+  template:
+    metadata:
+      labels:
+        io.kompose.network/app-network: "true"
+        app: upload-service
+    spec:
+      containers:
+        - image: stassig/project-upload-service
+          name: upload-service
+          ports:
+            - containerPort: 3001
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: upload-service
+  labels:
+    app: upload-service-k8s
+spec:
+  ports:
+    - name: "3001"
+      port: 3001
+      targetPort: 3001
+  selector:
+    app: upload-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-service-deployment
+  labels:
+    app: user-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-service
+  template:
+    metadata:
+      labels:
+        io.kompose.network/app-network: "true"
+        app: user-service
+    spec:
+      containers:
+        - image: stassig/project-user-service
+          name: user-service
+          ports:
+            - containerPort: 3002
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-service
+  labels:
+    app: user-service-k8s
+spec:
+  ports:
+    - name: "3002"
+      port: 3002
+      targetPort: 3002
+  selector:
+    app: user-service
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+  labels:
+    app: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web
+  template:
+    metadata:
+      labels:
+        io.kompose.network/app-network: "true"
+        app: web
+    spec:
+      containers:
+        - image: stassig/project-web
+          name: web
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 250m
+              memory: 256Mi
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-service
+  labels:
+    app: web-service
+spec:
+  type: LoadBalancer
+  ports:
+    - name: "3000"
+      port: 3000
+      targetPort: 3000
+      nodePort: 30650
+  selector:
+    app: web
