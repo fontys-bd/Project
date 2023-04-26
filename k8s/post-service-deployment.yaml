@@ -36,8 +36,9 @@ metadata:
   labels:
     app: post-service-k8s
 spec:
+  type: ClusterIP
   ports:
-    - name: "3003"
+    - name: "post-service-port"
       port: 3003
       targetPort: 3003
   selector:

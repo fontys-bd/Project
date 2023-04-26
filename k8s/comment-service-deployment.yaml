@@ -1,3 +1,4 @@
+######### COMMENT SERVICE #########
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -36,9 +37,12 @@ metadata:
   labels:
     app: comment-service-k8s
 spec:
+  type: ClusterIP
   ports:
-    - name: "3004"
+    - name: "comment-service-port"
       port: 3004
       targetPort: 3004
   selector:
     app: comment-service
+---
+
