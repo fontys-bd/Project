@@ -45,4 +45,6 @@ RUN adduser --system --uid 1001 expressjs
 USER expressjs
 COPY --from=installer /app .
 
+ENV NODE_ENV=production
+
 CMD node apps/upload-service/dist/index.js
