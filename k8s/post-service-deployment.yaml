@@ -18,7 +18,7 @@ spec:
       imagePullSecrets:
         - name: acr-credentials
       containers:
-        - image: spContaineRegistry.azurecr.io/project-post-service
+        - image: g3Registry.azurecr.io/post-service
           imagePullPolicy: IfNotPresent
           name: post-service
           ports:
