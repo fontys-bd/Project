@@ -78,20 +78,20 @@ services:
       - rabbitmq
     env_file:
       - .env
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: rabbitmq
-    hostname: rabbitmq
-    ports:
-      - 15672:15672
-      - 5672:5672
-    volumes:
-      - ./.rabbitmq_data:/var/lib/rabbitmq/mnesia
-    environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=admin
-    networks:
-      - app_network
+  # rabbitmq:
+  #   image: rabbitmq:3-management-alpine
+  #   container_name: rabbitmq
+  #   hostname: rabbitmq
+  #   ports:
+  #     - 15672:15672
+  #     - 5672:5672
+  #   volumes:
+  #     - ./.rabbitmq_data:/var/lib/rabbitmq/mnesia
+  #   environment:
+  #     - RABBITMQ_DEFAULT_USER=admin
+  #     - RABBITMQ_DEFAULT_PASS=admin
+  #   networks:
+  #     - app_network
 
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname
