@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
+    image: web:latest
     restart: always
     ports:
       - 3000:3000
@@ -21,6 +22,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/upload-service/Dockerfile
+    image: upload-service:latest
     restart: always
     ports:
       - 3001:3001
@@ -36,6 +38,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/user-service/Dockerfile
+    image: user-service:latest
     restart: always
     ports:
       - 3002:3002
@@ -50,6 +53,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/post-service/Dockerfile
+    image: post-service:latest
     restart: always
     ports:
       - 3003:3003
@@ -64,6 +68,7 @@ services:
     build:
       context: .
       dockerfile: ./apps/comment-service/Dockerfile
+    image: comment-service:latest
     restart: always
     ports:
       - 3004:3004
