@@ -15,8 +15,11 @@ spec:
         io.kompose.network/app-network: "true"
         app: post-service
     spec:
+      imagePullSecrets:
+        - name: acr-credentials
       containers:
-        - image: stassig/project-post-service
+        - image: spContaineRegistry.azurecr.io/project-post-service
+          imagePullPolicy: IfNotPresent
           name: post-service
           ports:
             - containerPort: 3003
@@ -27,6 +30,12 @@ spec:
             limits:
               cpu: 250m
               memory: 256Mi
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DATABASE_URL
       restartPolicy: Always
 ---
 apiVersion: v1
