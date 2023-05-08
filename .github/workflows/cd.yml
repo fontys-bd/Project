@@ -43,3 +43,22 @@ jobs:
 
           docker tag comment-service:latest ${{ env.ACR_NAME }}.azurecr.io/comment-service:${{ env.COMMIT_HASH }}
           docker push ${{ env.ACR_NAME }}.azurecr.io/comment-service:${{ env.COMMIT_HASH }}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: publish
+    env:
+      COMMIT_HASH: ${{ github.sha }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy to AKS
+        working-directory: k8s
+        env:
+          KUBECONFIG_FILE: kubeconfig.yaml
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" > ${{ env.KUBECONFIG_FILE }}
+          export KUBECONFIG=${{ env.KUBECONFIG_FILE }}
+          sed -i 's/CICD_PLACEHOLDER/${{ env.COMMIT_HASH }}/' kustomization.yaml
+          kubectl kustomize . | kubectl apply -f -
