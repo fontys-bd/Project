@@ -45,4 +45,7 @@ RUN adduser --system --uid 1001 expressjs
 USER expressjs
 COPY --from=installer /app .
 
+# Set NODE_ENV to production
+ENV NODE_ENV=production
+
 CMD node apps/comment-service/dist/index.js
