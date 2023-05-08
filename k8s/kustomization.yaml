@@ -12,15 +12,15 @@ resources:
   - secrets.yaml
 
 images:
-  - name: spContaineRegistry.azurecr.io/post-service
-    newName: spContaineRegistry.azurecr.io/post-service
+  - name: g3Registry.azurecr.io/post-service
+    newName: g3Registry.azurecr.io/post-service
     newTag: CICD_PLACEHOLDER
-  - name: spContaineRegistry.azurecr.io/comment-service
-    newName: spContaineRegistry.azurecr.io/comment-service
+  - name: g3Registry.azurecr.io/comment-service
+    newName: g3Registry.azurecr.io/comment-service
     newTag: CICD_PLACEHOLDER
-  - name: spContaineRegistry.azurecr.io/user-service
-    newName: spContaineRegistry.azurecr.io/user-service
+  - name: g3Registry.azurecr.io/user-service
+    newName: g3Registry.azurecr.io/user-service
     newTag: CICD_PLACEHOLDER
-  - name: spContaineRegistry.azurecr.io/upload-service
-    newName: spContaineRegistry.azurecr.io/upload-service
+  - name: g3Registry.azurecr.io/upload-service
+    newName: g3Registry.azurecr.io/upload-service
     newTag: CICD_PLACEHOLDER
