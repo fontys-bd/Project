@@ -28,8 +28,8 @@ services:
       - 3001:3001
     networks:
       - app_network
-    depends_on:
-      - rabbitmq
+    # depends_on:
+    #   - rabbitmq
     env_file:
       - .env
 
@@ -44,8 +44,8 @@ services:
       - 3002:3002
     networks:
       - app_network
-    depends_on:
-      - rabbitmq
+    # depends_on:
+    #   - rabbitmq
     env_file:
       - .env
   post-service:
@@ -59,8 +59,8 @@ services:
       - 3003:3003
     networks:
       - app_network
-    depends_on:
-      - rabbitmq
+    # depends_on:
+    #   - rabbitmq
     env_file:
       - .env
   comment-service:
@@ -74,8 +74,8 @@ services:
       - 3004:3004
     networks:
       - app_network
-    depends_on:
-      - rabbitmq
+    # depends_on:
+    #   - rabbitmq
     env_file:
       - .env
   # rabbitmq:
