@@ -7,6 +7,7 @@ const server = createServer();
 
 server.listen(port, () => {
   log(`api running on ${port}`);
+  console.log(process.env.NODE_ENV);
 });
 
-server.use("/comment", CommentRouter());
+server.use("/", CommentRouter());
