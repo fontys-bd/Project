@@ -6,28 +6,30 @@ services:
     build:
       context: .
       dockerfile: ./apps/web/Dockerfile
+    image: web:latest
     restart: always
     ports:
       - 3000:3000
     networks:
       - app_network
     environment:
-      - NEXT_PUBLIC_POST_SERVICE_URL=http://post-service:3003
-      - NEXT_PUBLIC_USER_SERVICE_URL=http://user-service:3002
-      - NEXT_PUBLIC_COMMENT_SERVICE_URL=http://comment-service:3004
+      - NEXT_PUBLIC_POST_SERVICE_URL=http://post-service:3003/post
+      - NEXT_PUBLIC_USER_SERVICE_URL=http://user-service:3002/user
+      - NEXT_PUBLIC_COMMENT_SERVICE_URL=http://comment-service:3004/comment
 
   upload-service:
     container_name: upload-service
     build:
       context: .
       dockerfile: ./apps/upload-service/Dockerfile
+    image: upload-service:latest
     restart: always
     ports:
       - 3001:3001
     networks:
       - app_network
-    depends_on:
-      - rabbitmq
+    # depends_on:
+    #   - rabbitmq
     env_file:
       - .env
 
@@ -36,13 +38,14 @@ services:
     build:
       context: .
       dockerfile: ./apps/user-service/Dockerfile
+    image: user-service:latest
     restart: always
     ports:
       - 3002:3002
     networks:
       - app_network
-    depends_on:
-      - rabbitmq
+    # depends_on:
+    #   - rabbitmq
     env_file:
       - .env
   post-service:
@@ -50,13 +53,14 @@ services:
     build:
       context: .
       dockerfile: ./apps/post-service/Dockerfile
+    image: post-service:latest
     restart: always
     ports:
       - 3003:3003
     networks:
       - app_network
-    depends_on:
-      - rabbitmq
+    # depends_on:
+    #   - rabbitmq
     env_file:
       - .env
   comment-service:
@@ -64,32 +68,33 @@ services:
     build:
       context: .
       dockerfile: ./apps/comment-service/Dockerfile
+    image: comment-service:latest
     restart: always
     ports:
       - 3004:3004
     networks:
       - app_network
-    depends_on:
-      - rabbitmq
+    # depends_on:
+    #   - rabbitmq
     env_file:
       - .env
-  rabbitmq:
-    image: rabbitmq:3-management-alpine
-    container_name: rabbitmq
-    hostname: rabbitmq
-    ports:
-      - 15672:15672
-      - 5672:5672
-    volumes:
-      - ./.rabbitmq_data:/var/lib/rabbitmq/mnesia
-    environment:
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=admin
-    networks:
-      - app_network
+  # rabbitmq:
+  #   image: rabbitmq:3-management-alpine
+  #   container_name: rabbitmq
+  #   hostname: rabbitmq
+  #   ports:
+  #     - 15672:15672
+  #     - 5672:5672
+  #   volumes:
+  #     - ./.rabbitmq_data:/var/lib/rabbitmq/mnesia
+  #   environment:
+  #     - RABBITMQ_DEFAULT_USER=admin
+  #     - RABBITMQ_DEFAULT_PASS=admin
+  #   networks:
+  #     - app_network
 
 # Define a network, which allows containers to communicate
-# with each other, by using their container name as a hostname
+# with each other, by using their container name as a hostname.
 networks:
   app_network:
     external: true
