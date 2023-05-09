@@ -1,9 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.local", "**/.env", ".env.**"],
+  "globalDependencies": ["**/.env.*local", "**/.env", ".env.**"],
+  "globalEnv": ["NODE_ENV"],
   "pipeline": {
     "build": {
-      "outputs": ["dist/**", ".next/**", "public/dist/**"],
+      "outputs": ["dist/**", ".next/**", "public/dist/**","!.next/cache/**"],
       "dependsOn": ["^build"],
       "env": [
         "NEXT_PUBLIC_URL",
@@ -32,7 +33,8 @@
       "cache": false
     },
     "db:generate": {
-      "cache": false
+      "cache": false,
+      "dependsOn": ["^generate"]
     },
     "db:push": {
       "cache": false

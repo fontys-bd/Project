@@ -27,7 +27,7 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # local env files
-.env.local
+# .env.local //maybe change later idk
 .env.development.local
 .env.test.local
 .env.production.local
@@ -37,3 +37,6 @@ yarn-error.log*
 
 # vscode
 .vscode
+
+# RabbitMQ
+.rabbitmq_data

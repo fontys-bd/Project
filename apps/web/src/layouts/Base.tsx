@@ -14,12 +14,12 @@ export default function BaseLayout({ children, ...props }: BaseLayoutProps) {
       </Head>
       <div className="flex h-screen flex-col">
         <Header />
-        <div className="grid grid-cols-6">
-          <aside className="col-span-1">
+        <div className="grid grid-cols-6 overflow-clip">
+          <aside className="col-span-1 m-2 text-lg">
             <Topics />
           </aside>
           <main className="col-span-4">{children}</main>
-          <aside className="col-span-1">SideBar</aside>
+          <aside className="col-span-1 m-2 text-center text-lg">Saved</aside>
         </div>
       </div>
     </>

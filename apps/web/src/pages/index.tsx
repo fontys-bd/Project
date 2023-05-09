@@ -1,11 +1,9 @@
-import Link from "next/link";
+import Login from "@/components/auth/Login/Login";
 
-export default function Main() {
+export default function LoginPage() {
   return (
-    <main className="grid h-screen place-content-center">
-      <Link href={"/home"} className="text-4xl">
-        Login HERE
-      </Link>
+    <main className="grid h-screen w-screen place-content-center">
+      <Login />
     </main>
   );
 }

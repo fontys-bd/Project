@@ -1,15 +1,13 @@
-import Post from "@/components/Post";
 import Base from "@/layouts/Base";
+import HomeFilters from "@/components/home/HomeFilters";
+import Feed from "@/components/home/Feed";
 
 export default function Home() {
   return (
-    <>
-      {Array(5)
-        .fill(0)
-        .map((_, i) => {
-          return <Post title={"Title Here"} content={"Content Here"} key={i} />;
-        })}
-    </>
+    <div className="h-screen overflow-y-auto border-x border-solid border-gray-500 bg-gray-200 p-2 px-2">
+      <HomeFilters />
+      <Feed />
+    </div>
   );
 }
 
