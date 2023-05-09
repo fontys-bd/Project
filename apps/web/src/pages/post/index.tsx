@@ -17,15 +17,20 @@ export default function PostPage() {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
-    await post("http://localhost:3003/post/", {
-      title,
-      content,
-      picture_desc,
-      anonymous,
-      status: "ACTIVE",
-    }).then(async (result) => {
-      console.log(result);
-    });
+    const URL = process.env.NEXT_PUBLIC_POST_SERVICE_URL;
+    if (URL) {
+      await post(URL, {
+        title,
+        content,
+        picture_desc,
+        anonymous,
+        status: "ACTIVE",
+      }).then(async (result) => {
+        console.log(result);
+      });
+    } else {
+      console.error("URL is not defined.");
+    }
   };
 
   const handleFile = (e: React.ChangeEvent<HTMLInputElement>) => {
