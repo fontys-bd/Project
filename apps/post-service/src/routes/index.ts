@@ -8,29 +8,27 @@ export const postRouter = () => {
   router.get("/", async (req, res) => {
     const posts = await service.GetPosts();
     if (posts) {
-      return res.json(posts);
+      return res.json({ posts });
     } else {
       return res.status(404).json({ message: "No posts found" });
     }
   });
   router.post("/", async (req, res) => {
-    console.log("req.body :", req.body);
     const post = await service.CreatePost(req.body);
     if (!post) {
       return res.status(404).json({ message: "post not found" });
     }
-    return res.json(post);
+    return res.json({ post });
   });
   // Dynamic routes
   router
     .route("/:id")
     .get(async (req, res) => {
       const post = await service.GetPostById(req.params.id);
-      console.log("post router :", post);
       if (!post) {
         return res.status(404).json({ message: "post not found" });
       }
-      return res.json(post);
+      return res.json({ post });
     })
 
     .put(async (req, res) => {
@@ -45,7 +43,7 @@ export const postRouter = () => {
       if (!post) {
         return res.status(404).json({ message: "post not found" });
       }
-      return res.json(post);
+      return res.json({ post });
     });
 
   // Middleware for dynamic routes
