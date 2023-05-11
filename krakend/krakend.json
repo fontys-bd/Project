@@ -1,5 +1,16 @@
 {
   "version": 3,
+  "extra_config": {
+    "security/cors": {
+      "allow_origins": ["*"],
+      "allow_methods": ["GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"],
+      "expose_headers": ["Content-Length", "Content-Type"],
+      "allow_headers": ["Accept-Language"],
+      "max_age": "12h",
+      "allow_credentials": false,
+      "debug": false
+    }
+  },
   "endpoints": [
     {
       "endpoint": "/post",
