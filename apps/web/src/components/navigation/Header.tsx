@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { FiPlusSquare } from "react-icons/fi";
+import { CgProfile } from "react-icons/cg";
 
 export default function Header() {
   return (
@@ -13,6 +14,14 @@ export default function Header() {
                 height: "1.5rem",
                 width: "1.5rem",
                 display: "inline-block",
+              }}
+            />
+          </Link>
+          <Link href={"/profile"}>
+            <CgProfile
+              style={{
+                height: "1.5rem",
+                width: "1.5rem",
               }}
             />
           </Link>
