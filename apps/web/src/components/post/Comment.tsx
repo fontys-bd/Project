@@ -20,7 +20,7 @@ export default function Comment() {
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     e.preventDefault();
-    const URL = process.env.NEXT_PUBLIC_COMMENT_SERVICE_URL + `/`;
+    const URL = process.env.NEXT_PUBLIC_COMMENT_SERVICE_URL;
     if (URL) {
       const created_at = new Date().toISOString();
       await comment(URL, {

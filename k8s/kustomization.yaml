@@ -22,6 +22,6 @@ images:
   - name: g3Registry.azurecr.io/user-service
     newName: g3Registry.azurecr.io/user-service
     newTag: CICD_PLACEHOLDER
-  # - name: g3Registry.azurecr.io/krakend
-  #   newName: g3Registry.azurecr.io/krakend
-  #   newTag: CICD_PLACEHOLDER
+  - name: g3Registry.azurecr.io/krakend
+    newName: g3Registry.azurecr.io/krakend
+    newTag: CICD_PLACEHOLDER

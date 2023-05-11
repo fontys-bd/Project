@@ -5,10 +5,13 @@
       "allow_origins": ["*"],
       "allow_methods": ["GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"],
       "expose_headers": ["Content-Length", "Content-Type"],
-      "allow_headers": ["Accept-Language"],
+      "allow_headers": ["Accept-Language", "Content-Type", "Authorization", "Accept", "Origin"],
       "max_age": "12h",
       "allow_credentials": false,
       "debug": false
+    },
+    "router": {
+      "auto_options": true
     }
   },
   "endpoints": [
@@ -28,6 +31,16 @@
         {
           "host": "http://localhost:3004",
           "url_pattern": "/",
+          "encoding": "json"
+        }
+      ]
+    },
+    {
+      "endpoint": "/comment/byPostID/{id}",
+      "backend": [
+        {
+          "host": "http://comment-service:3004",
+          "url_pattern": "/byPostID/{id}",
           "encoding": "json"
         }
       ]

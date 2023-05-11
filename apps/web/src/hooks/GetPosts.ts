@@ -4,7 +4,7 @@ import useSWR from "swr";
 
 export function GetPosts() {
   const { data, error, isLoading } = useSWR(
-    "http://localhost:8080/post",
+    `${process.env.NEXT_PUBLIC_POST_SERVICE_URL}`,
     fetcher
   );
   // "http://localhost:8080/post"
