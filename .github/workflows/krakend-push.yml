@@ -1,0 +1,57 @@
+# Name of the GitHub Actions workflow
+name: Push Krakend to ACR
+
+# The triggers for the workflow: push to main branch and pull requests
+on:
+  push:
+    branches: ["krakend-config"]
+
+# Definition of jobs to be run
+jobs:
+  # First job to publish Docker images to Azure Container Registry (ACR)
+  publish:
+    # Runs the job on the latest version of Ubuntu
+    runs-on: ubuntu-latest
+    # Environmental variables used in the job
+    env:
+      ACR_NAME: g3Registry
+      ACR_USERNAME: ${{ secrets.ACR_USERNAME }}
+      ACR_PASSWORD: ${{ secrets.ACR_PASSWORD }}
+      DOCKER_COMPOSE_FILE: docker-compose.yml
+      COMMIT_HASH: ${{ github.sha }}
+    steps:
+      # Checks out the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Logs into the ACR using Azure's Docker login action
+      - name: Log in to ACR
+        uses: azure/docker-login@v1
+        with:
+          login-server: ${{ env.ACR_NAME }}.azurecr.io
+          username: ${{ secrets.ACR_USERNAME }}
+          password: ${{ secrets.ACR_PASSWORD }}
+
+      # Sets up Docker Buildx for building Docker images
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      # Caches Docker layers to improve build speed
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      # Builds Docker images using Docker Compose
+      - name: Build docker images
+        run: |
+          DOCKER_BUILDKIT=1 docker-compose -f ${{ env.DOCKER_COMPOSE_FILE }} build --parallel
+
+      # Tags and pushes Docker images to ACR
+      - name: Push Docker images to ACR
+        run: |
+          docker tag krakend:latest ${{ env.ACR_NAME }}.azurecr.io/krakend:${{ env.COMMIT_HASH }}
+          docker push ${{ env.ACR_NAME }}.azurecr.io/krakend:${{ env.COMMIT_HASH }}
