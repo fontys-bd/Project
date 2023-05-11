@@ -17,9 +17,23 @@
   "endpoints": [
     {
       "endpoint": "/post",
+      "method": "GET",
       "backend": [
         {
           "host": "http://post-service:3003",
+          "method": "GET",
+          "url_pattern": "/",
+          "encoding": "json"
+        }
+      ]
+    },
+    {
+      "endpoint": "/post",
+      "method": "POST",
+      "backend": [
+        {
+          "host": "http://post-service:3003",
+          "method": "POST",
           "url_pattern": "/",
           "encoding": "json"
         }
@@ -27,19 +41,35 @@
     },
     {
       "endpoint": "/comment",
+      "method": "GET",
       "backend": [
         {
           "host": "http://comment-service:3004",
+          "method": "GET",
           "url_pattern": "/",
           "encoding": "json"
         }
       ]
     },
     {
-      "endpoint": "/comment/byPostID/{id}",
+      "endpoint": "/comment",
+      "method": "POST",
       "backend": [
         {
           "host": "http://comment-service:3004",
+          "url_pattern": "/",
+          "method": "POST",
+          "encoding": "json"
+        }
+      ]
+    },
+    {
+      "endpoint": "/comment/byPostID/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": "http://comment-service:3004",
+          "method": "GET",
           "url_pattern": "/byPostID/{id}",
           "encoding": "json"
         }
@@ -47,9 +77,23 @@
     },
     {
       "endpoint": "/user",
+      "method": "GET",
       "backend": [
         {
           "host": "http://user-service:3002",
+          "method": "GET",
+          "url_pattern": "/",
+          "encoding": "json"
+        }
+      ]
+    },
+    {
+      "endpoint": "/user",
+      "method": "POST",
+      "backend": [
+        {
+          "host": "http://user-service:3002",
+          "method": "POST",
           "url_pattern": "/",
           "encoding": "json"
         }
