@@ -24,7 +24,7 @@ export default function ProfilePage() {
       <div className="w-2/3 pl-4">
         <main>
           <div>
-            <p className="text-xl pb-2">YOUR POSTS</p>
+            <p className="pb-2 text-xl">YOUR POSTS</p>
             <hr className=" border border-black" />
           </div>
         </main>
