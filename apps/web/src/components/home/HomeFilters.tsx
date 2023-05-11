@@ -7,7 +7,10 @@ interface HomeFiltersProps {
   onFilterChange: (filter: string) => void;
 }
 
-export default function HomeFilters({ selectedFilter, onFilterChange }: HomeFiltersProps) {
+export default function HomeFilters({
+  selectedFilter,
+  onFilterChange,
+}: HomeFiltersProps) {
   const filters = ["Most popular", "Newest", "Active", "Urgent", "Closed"];
 
   const handleFilterClick = (filter: string) => {
@@ -26,13 +29,15 @@ export default function HomeFilters({ selectedFilter, onFilterChange }: HomeFilt
         <span>Sort by:</span>
         <nav>
           {filters.map((filter, key) => {
-            return <HomeFilterButton
-              key={key}
-              selected={selectedFilter === filter}
-              onClick={() => handleFilterClick(filter)}
-            >
-              {filter}
-            </HomeFilterButton>;
+            return (
+              <HomeFilterButton
+                key={key}
+                selected={selectedFilter === filter}
+                onClick={() => handleFilterClick(filter)}
+              >
+                {filter}
+              </HomeFilterButton>
+            );
           })}
         </nav>
       </div>

@@ -12,39 +12,38 @@ export default function Feed({ selectedFilter }: FeedProps) {
   if (error) return <div>Error: {error.message}</div>;
   if (isLoading || !posts) return <div>Loading...</div>;
 
-
   let sortedPosts = [...posts.posts];
 
   switch (selectedFilter) {
     //TODO: Implement sorting by Most Popular
-    case 'Newest':
+    case "Newest":
       sortedPosts.sort((a, b) => {
         const dateA = new Date(a.created_at);
         const dateB = new Date(b.created_at);
         return dateB.getTime() - dateA.getTime();
       });
       break;
-    case 'Active':
+    case "Active":
       sortedPosts = sortedPosts
-        .filter((post) => post.status === 'ACTIVE')
+        .filter((post) => post.status === "ACTIVE")
         .sort((a, b) => {
           const dateA = new Date(a.created_at);
           const dateB = new Date(b.created_at);
           return dateB.getTime() - dateA.getTime();
         });
       break;
-    case 'Urgent':
+    case "Urgent":
       sortedPosts = sortedPosts
-        .filter((post) => post.status === 'URGENT')
+        .filter((post) => post.status === "URGENT")
         .sort((a, b) => {
           const dateA = new Date(a.created_at);
           const dateB = new Date(b.created_at);
           return dateB.getTime() - dateA.getTime();
         });
       break;
-    case 'Closed':
+    case "Closed":
       sortedPosts = sortedPosts
-        .filter((post) => post.status === 'CLOSED')
+        .filter((post) => post.status === "CLOSED")
         .sort((a, b) => {
           const dateA = new Date(a.created_at);
           const dateB = new Date(b.created_at);
