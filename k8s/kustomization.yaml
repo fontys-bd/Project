@@ -9,8 +9,7 @@ resources:
   - api-gateway-ingress.yaml
   - cluster-issuer.yaml
   - secrets.yaml
-  # - cors-plugin.yaml
-  # - upload-service-deployment.yaml
+
 
 
 images:
