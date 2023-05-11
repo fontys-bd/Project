@@ -5,12 +5,13 @@ resources:
   - post-service-deployment.yaml
   - comment-service-deployment.yaml
   - user-service-deployment.yaml
-  - upload-service-deployment.yaml
   - krakend-deployment.yaml
   - api-gateway-ingress.yaml
   - cors-plugin.yaml
   - cluster-issuer.yaml
   - secrets.yaml
+  # - upload-service-deployment.yaml
+
 
 images:
   - name: g3Registry.azurecr.io/post-service
@@ -22,9 +23,9 @@ images:
   - name: g3Registry.azurecr.io/user-service
     newName: g3Registry.azurecr.io/user-service
     newTag: CICD_PLACEHOLDER
-  - name: g3Registry.azurecr.io/upload-service
-    newName: g3Registry.azurecr.io/upload-service
-    newTag: CICD_PLACEHOLDER
+  # - name: g3Registry.azurecr.io/upload-service
+  #   newName: g3Registry.azurecr.io/upload-service
+  #   newTag: CICD_PLACEHOLDER
   # - name: g3Registry.azurecr.io/krakend
   #   newName: g3Registry.azurecr.io/krakend
   #   newTag: CICD_PLACEHOLDER

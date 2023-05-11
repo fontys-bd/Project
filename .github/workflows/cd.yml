@@ -56,9 +56,6 @@ jobs:
       # Tags and pushes Docker images to ACR
       - name: Push Docker images to ACR
         run: |
-          docker tag upload-service:latest ${{ env.ACR_NAME }}.azurecr.io/upload-service:${{ env.COMMIT_HASH }}
-          docker push ${{ env.ACR_NAME }}.azurecr.io/upload-service:${{ env.COMMIT_HASH }}
-
           docker tag user-service:latest ${{ env.ACR_NAME }}.azurecr.io/user-service:${{ env.COMMIT_HASH }}
           docker push ${{ env.ACR_NAME }}.azurecr.io/user-service:${{ env.COMMIT_HASH }}
 
