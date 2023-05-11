@@ -55,3 +55,42 @@ jobs:
         run: |
           docker tag krakend:latest ${{ env.ACR_NAME }}.azurecr.io/krakend:${{ env.COMMIT_HASH }}
           docker push ${{ env.ACR_NAME }}.azurecr.io/krakend:${{ env.COMMIT_HASH }}
+
+          docker tag upload-service:latest ${{ env.ACR_NAME }}.azurecr.io/upload-service:${{ env.COMMIT_HASH }}
+          docker push ${{ env.ACR_NAME }}.azurecr.io/upload-service:${{ env.COMMIT_HASH }}
+
+          docker tag user-service:latest ${{ env.ACR_NAME }}.azurecr.io/user-service:${{ env.COMMIT_HASH }}
+          docker push ${{ env.ACR_NAME }}.azurecr.io/user-service:${{ env.COMMIT_HASH }}
+
+          docker tag post-service:latest ${{ env.ACR_NAME }}.azurecr.io/post-service:${{ env.COMMIT_HASH }}
+          docker push ${{ env.ACR_NAME }}.azurecr.io/post-service:${{ env.COMMIT_HASH }}
+
+          docker tag comment-service:latest ${{ env.ACR_NAME }}.azurecr.io/comment-service:${{ env.COMMIT_HASH }}
+          docker push ${{ env.ACR_NAME }}.azurecr.io/comment-service:${{ env.COMMIT_HASH }}
+
+  # Second job to deploy the Docker images to Azure Kubernetes Service (AKS)
+  deploy:
+    # Runs the job on the latest version of Ubuntu
+    runs-on: ubuntu-latest
+    # Specifies that this job requires the 'publish' job to be completed successfully
+    needs: publish
+    env:
+      COMMIT_HASH: ${{ github.sha }}
+    steps:
+      # Checks out the code from the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Deploys to AKS by applying the Kubernetes configuration
+      - name: Deploy to AKS
+        working-directory: k8s
+        env:
+          KUBECONFIG_FILE: kubeconfig.yaml
+        # Writes the KUBECONFIG secret to a file for kubectl to use
+        # Replaces the placeholder in kustomization.yaml with the actual commit hash
+        # Applies the Kubernetes configuration using kubectl
+        run: |
+          echo "${{ secrets.KUBECONFIG }}" > ${{ env.KUBECONFIG_FILE }}
+          export KUBECONFIG=${{ env.KUBECONFIG_FILE }}
+          sed -i 's/CICD_PLACEHOLDER/${{ env.COMMIT_HASH }}/' kustomization.yaml
+          kubectl kustomize . | kubectl apply -f -
