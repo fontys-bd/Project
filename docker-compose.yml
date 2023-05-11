@@ -78,14 +78,15 @@ services:
       - krakend
 
   krakend:
-    image: devopsfaith/krakend
+    container_name: krakend
+    build:
+      context: ./krakend
+      dockerfile: ./Dockerfile
+    image: krakend:latest
     ports:
       - "8080:8080"
-    volumes:
-      - ./krakend:/etc/krakend
     networks:
       - app_network
-    
 
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname.

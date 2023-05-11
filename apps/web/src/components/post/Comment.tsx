@@ -34,7 +34,7 @@ export default function Comment() {
       </section>
       <section>
         {comments ? (
-          comments?.map((comment: any) => {
+          comments?.comments.map((comment: any) => {
             return (
               <article className="border-1 mb-2 border" key={comment.id}>
                 <header className="flex gap-4 border-b-2 p-2">

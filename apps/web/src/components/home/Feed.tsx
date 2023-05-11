@@ -10,7 +10,7 @@ export default function Feed() {
 
   return (
     <>
-      {posts
+      {posts.posts
         .sort(
           (
             a: { created_at: string | number | Date },
