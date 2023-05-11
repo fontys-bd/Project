@@ -9,9 +9,10 @@ export default function PostPage() {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
   const [picture_desc, setImageDescription] = useState<string>("");
-
-  const toggleAnonymously = () => {
-    setAnonymous(!anonymous);
+  const [postedAnonymously, setPostedAnonymously] = useState(false);
+  const handleToggleAnonymity = (value: boolean) => {
+    setAnonymous(value);
+    setPostedAnonymously(true);
   };
   const handleSubmit = async (
     e: React.FormEvent<HTMLFormElement>
@@ -57,7 +58,7 @@ export default function PostPage() {
       <main>
         <p className="py-7 text-center text-2xl ">CREATE POST</p>
         <hr className=" border border-black" />
-        <form className="pt-3" onSubmit={handleSubmit} method="post">
+        <form className="pt-3" method="post" onSubmit={handleSubmit}>
           <section>
             <input
               placeholder="Title"
@@ -151,27 +152,44 @@ export default function PostPage() {
           <div>
             <div className="mt-3">
               <div className="flex">
-                <label className="relative mr-5 inline-flex  items-center">
-                  <input
-                    type="checkbox"
-                    className="peer sr-only"
-                    checked={anonymous}
-                  />
-                  <div
-                    onClick={() => {
-                      toggleAnonymously();
-                    }}
-                    className="peer h-6 w-11 rounded-full bg-gray-200  after:absolute  after:left-[2px] after:top-0.5 after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-green-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:ring-green-300"
-                  ></div>
-                  <p className="ml-2 text-sm font-medium">Post anonymously</p>
-                </label>
+                <p className="ml-2 mr-4 text-sm font-medium">
+                  Post anonymously
+                </p>
+                <button
+                  type="button"
+                  className={`${
+                    anonymous ? "bg-[#3B81F6]" : "bg-gray-200"
+                  } mr-5 h-6 w-11 rounded-full`}
+                  onClick={() => handleToggleAnonymity(true)}
+                >
+                  YES
+                </button>
+                <button
+                  type="button"
+                  className={`${
+                    !anonymous && postedAnonymously
+                      ? "bg-[#3B81F6]"
+                      : "bg-gray-200"
+                  } h-6 w-11 rounded-full`}
+                  onClick={() => handleToggleAnonymity(false)}
+                >
+                  NO
+                </button>
               </div>
             </div>
+            <hr className="my-6 border border-black " />
+            <button
+              type="submit"
+              className={`mb-6 h-14 w-full rounded-3xl ${
+                postedAnonymously
+                  ? "bg-[#3B81F6] text-white"
+                  : "cursor-not-allowed bg-gray-300 text-gray-500"
+              } text-2xl font-normal`}
+              disabled={!anonymous && !postedAnonymously}
+            >
+              ADD POST
+            </button>
           </div>
-          <hr className="my-6 border border-black " />
-          <button className=" mb-6 h-14 w-full rounded-3xl bg-[#3B81F6] text-2xl font-normal text-white">
-            ADD POST
-          </button>
         </form>
       </main>
     </article>
