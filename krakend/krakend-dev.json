@@ -9,6 +9,9 @@
       "max_age": "12h",
       "allow_credentials": false,
       "debug": false
+    },
+    "router": {
+      "auto_options": true
     }
   },
   "endpoints": [
