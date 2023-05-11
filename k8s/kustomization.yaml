@@ -7,9 +7,9 @@ resources:
   - user-service-deployment.yaml
   - krakend-deployment.yaml
   - api-gateway-ingress.yaml
-  - cors-plugin.yaml
   - cluster-issuer.yaml
   - secrets.yaml
+  # - cors-plugin.yaml
   # - upload-service-deployment.yaml
 
 
