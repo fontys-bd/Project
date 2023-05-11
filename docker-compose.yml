@@ -17,21 +17,19 @@ services:
       - NEXT_PUBLIC_USER_SERVICE_URL=http://user-service:3002/user
       - NEXT_PUBLIC_COMMENT_SERVICE_URL=http://comment-service:3004/comment
 
-  upload-service:
-    container_name: upload-service
-    build:
-      context: .
-      dockerfile: ./apps/upload-service/Dockerfile
-    image: upload-service:latest
-    restart: always
-    ports:
-      - 3001:3001
-    networks:
-      - app_network
-    # depends_on:
-    #   - rabbitmq
-    env_file:
-      - .env
+  # upload-service:
+  #   container_name: upload-service
+  #   build:
+  #     context: .
+  #     dockerfile: ./apps/upload-service/Dockerfile
+  #   image: upload-service:latest
+  #   restart: always
+  #   ports:
+  #     - 3001:3001
+  #   networks:
+  #     - app_network
+  #   env_file:
+  #     - .env
 
   user-service:
     container_name: user-service
@@ -44,10 +42,10 @@ services:
       - 3002:3002
     networks:
       - app_network
-    # depends_on:
-    #   - rabbitmq
     env_file:
       - .env
+    depends_on:
+      - krakend
   post-service:
     container_name: post-service
     build:
@@ -59,10 +57,10 @@ services:
       - 3003:3003
     networks:
       - app_network
-    # depends_on:
-    #   - rabbitmq
     env_file:
       - .env
+    depends_on:
+      - krakend
   comment-service:
     container_name: comment-service
     build:
@@ -74,27 +72,25 @@ services:
       - 3004:3004
     networks:
       - app_network
-    # depends_on:
-    #   - rabbitmq
     env_file:
       - .env
-  # rabbitmq:
-  #   image: rabbitmq:3-management-alpine
-  #   container_name: rabbitmq
-  #   hostname: rabbitmq
-  #   ports:
-  #     - 15672:15672
-  #     - 5672:5672
-  #   volumes:
-  #     - ./.rabbitmq_data:/var/lib/rabbitmq/mnesia
-  #   environment:
-  #     - RABBITMQ_DEFAULT_USER=admin
-  #     - RABBITMQ_DEFAULT_PASS=admin
-  #   networks:
-  #     - app_network
+    depends_on:
+      - krakend
+
+  krakend:
+    container_name: krakend
+    build:
+      context: ./krakend
+      dockerfile: ./Dockerfile
+    image: krakend:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - app_network
 
 # Define a network, which allows containers to communicate
 # with each other, by using their container name as a hostname.
+# test
 networks:
   app_network:
     external: true

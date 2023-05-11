@@ -8,7 +8,7 @@ export const CommentRouter = () => {
   router.get("/", async (req, res) => {
     const comments = await service.GetComments();
     if (comments) {
-      return res.json(comments);
+      return res.json({ comments });
     } else {
       return res.status(404).json({ message: "No comments found" });
     }
@@ -17,10 +17,18 @@ export const CommentRouter = () => {
   router.get("/byPostID/:id", async (req, res) => {
     const comments = await service.GetCommentsByPostId(req.params.id);
     if (comments) {
-      return res.json(comments);
+      return res.json({ comments });
     } else {
       return res.status(404).end();
     }
+  });
+
+  router.post("/", async (req, res) => {
+    const comment = await service.CreateComment(req.body);
+    if (!comment) {
+      return res.status(404).json({ message: "comment not created" });
+    }
+    return res.json({ comment });
   });
 
   // Dynamic routes
@@ -28,32 +36,25 @@ export const CommentRouter = () => {
     .route("/:id")
     .get(async (req, res) => {
       const comment = await service.GetCommentById(req.params.id);
-      console.log("comment router :", comment);
       if (!comment) {
         return res.status(404).json({ message: "comment not found" });
       }
-      return res.json(comment);
+      return res.json({ comment });
     })
-    .post(async (req, res) => {
-      const comment = await service.CreateComment(req.body);
-      if (!comment) {
-        return res.status(404).json({ message: "comment not found" });
-      }
-      return res.json(comment);
-    })
+
     .put(async (req, res) => {
       const comment = await service.UpdateComments(req.params.id, req.body);
       if (!comment) {
         return res.status(404).json({ message: "comment not found" });
       }
-      return res.json(comment);
+      return res.json({ comment });
     })
     .delete(async (req, res) => {
       const comment = await service.DeleteComments(req.params.id);
       if (!comment) {
         return res.status(404).json({ message: "comment not found" });
       }
-      return res.json(comment);
+      return res.json({ comment });
     });
 
   // Middleware for dynamic routes
