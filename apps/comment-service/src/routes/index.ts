@@ -23,6 +23,14 @@ export const CommentRouter = () => {
     }
   });
 
+  router.post("/", async (req, res) => {
+    const comment = await service.CreateComment(req.body);
+    if (!comment) {
+      return res.status(404).json({ message: "comment not created" });
+    }
+    return res.json({ comment });
+  });
+
   // Dynamic routes
   router
     .route("/:id")
@@ -33,13 +41,7 @@ export const CommentRouter = () => {
       }
       return res.json({ comment });
     })
-    .post(async (req, res) => {
-      const comment = await service.CreateComment(req.body);
-      if (!comment) {
-        return res.status(404).json({ message: "comment not found" });
-      }
-      return res.json({ comment });
-    })
+
     .put(async (req, res) => {
       const comment = await service.UpdateComments(req.params.id, req.body);
       if (!comment) {
