@@ -33,6 +33,16 @@
       ]
     },
     {
+      "endpoint": "/comment/byPostID/{id}",
+      "backend": [
+        {
+          "host": "http://comment-service:3004",
+          "url_pattern": "/byPostID/{id}",
+          "encoding": "json"
+        }
+      ]
+    },
+    {
       "endpoint": "/user",
       "backend": [
         {
