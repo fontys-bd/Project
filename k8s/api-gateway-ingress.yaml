@@ -32,6 +32,10 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
+  tls:
+    - hosts:
+        - krakend.blinddateg3.xyz
+      secretName: blinddateg3-krakend-tls
   rules:
   - host: krakend.blinddateg3.xyz
     http:
