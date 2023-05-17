@@ -36,7 +36,7 @@ export default function Login() {
       ) : (
         <Link
           className="rounded-lg bg-white p-4 text-center"
-          href={"/api/auth/login"}
+          href={"/api/auth/login?returnTo=/home"}
         >
           Login
         </Link>
