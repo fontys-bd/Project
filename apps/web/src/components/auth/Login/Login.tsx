@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Image from "next/image";
 import { SignInWithEmail } from "./SignInWithEmail";
 import { SingInWithGoogle } from "./SignInWithGoogle";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
   return (
@@ -26,6 +27,7 @@ export default function Login() {
       <SignInWithEmail />
 
       <SingInWithGoogle />
+      <button onClick={() => signIn()}> hello</button>
 
       <Link href={"/register"} className="text-blue mb-4 text-center text-xl">
         Are you a new user? Click here to register!
