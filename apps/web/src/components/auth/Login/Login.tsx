@@ -1,11 +1,13 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
 import Image from "next/image";
-import { SignInWithEmail } from "./SignInWithEmail";
-import { SingInWithGoogle } from "./SignInWithGoogle";
-import { signIn } from "next-auth/react";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function Login() {
+  const { user, error, isLoading } = useUser();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+
   return (
     <>
       <Image
@@ -24,14 +26,21 @@ export default function Login() {
         style={{ marginBottom: "1rem" }}
       />
 
-      <SignInWithEmail />
-
-      <SingInWithGoogle />
-      <button onClick={() => signIn()}> hello</button>
-
-      <Link href={"/register"} className="text-blue mb-4 text-center text-xl">
-        Are you a new user? Click here to register!
-      </Link>
+      {user ? (
+        <Link
+          className="rounded-lg bg-white p-4 text-center"
+          href={"/api/auth/logout"}
+        >
+          Logout
+        </Link>
+      ) : (
+        <Link
+          className="rounded-lg bg-white p-4 text-center"
+          href={"/api/auth/login"}
+        >
+          Login
+        </Link>
+      )}
     </>
   );
 }

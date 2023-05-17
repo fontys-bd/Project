@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import { SWRConfig } from "swr";
-import { SessionProvider } from "next-auth/react";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 type NextPageWithLayout = NextPage & {
   GetLayout?: (page: ReactElement) => ReactNode;
@@ -15,13 +15,13 @@ type AppPropsWithLayout = AppProps & {
 
 function BlindDate({
   Component,
-  pageProps: { session, ...pageProps },
+  pageProps: { user, ...pageProps },
 }: AppPropsWithLayout) {
   const GetLayout = Component.GetLayout ?? ((page: any) => page);
   return (
-    <SessionProvider session={session}>
+    <UserProvider user={user}>
       <SWRConfig>{GetLayout(<Component {...pageProps} />)}</SWRConfig>
-    </SessionProvider>
+    </UserProvider>
   );
 }
 

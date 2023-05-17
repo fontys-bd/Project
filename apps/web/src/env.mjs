@@ -20,9 +20,11 @@ const server = z.object({
     process.env.VERCEL ? z.string().min(1) : z.string().url()
   ),
   // Add `.min(1) on ID and SECRET if you want to make sure they're not empty
-  AUTH0_CLIENT_ID: z.string(),
-  AUTH0_CLIENT_SECRET: z.string(),
-  AUTH0_ISSUER: z.string(),
+  AUTH0_SECRET: z.string().min(1),
+  AUTH0_BASE_URL: z.string().url(),
+  AUTH0_ISSUER_BASE_URL: z.string().url(),
+  AUTH0_CLIENT_ID: z.string().min(1),
+  AUTH0_CLIENT_SECRET: z.string().min(1),
 });
 
 /**
@@ -51,7 +53,9 @@ const processEnv = {
   NEXTAUTH_URL: process.env.NEXTAUTH_URL,
   NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
 
-  AUTH0_ISSUER: process.env.AUTH0_ISSUER,
+  AUTH0_SECRET: process.env.AUTH0_SECRET,
+  AUTH0_BASE_URL: process.env.AUTH0_BASE_URL,
+  AUTH0_ISSUER_BASE_URL: process.env.AUTH0_ISSUER_BASE_URL,
   AUTH0_CLIENT_ID: process.env.AUTH0_CLIENT_ID,
   AUTH0_CLIENT_SECRET: process.env.AUTH0_CLIENT_SECRET,
 };
