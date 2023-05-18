@@ -1,5 +1,5 @@
 import { GetPosts } from "@/hooks/GetPosts";
-import { Post } from "src/types/post";
+import { PostSchema } from "src/types/post";
 import PostPreview from "@/components/PostPreview";
 
 interface FeedProps {
