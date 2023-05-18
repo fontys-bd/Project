@@ -11,8 +11,6 @@ export default function Comment({ postID }: { postID: string }) {
 
   const [content, setContent] = useState("");
 
-  if (error) return <div>Error: {error?.message}</div>;
-
   const submitComment = async (
     e: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
@@ -82,6 +80,8 @@ export default function Comment({ postID }: { postID: string }) {
               </article>
             );
           })
+        ) : error ? (
+          <div>Error: {error?.message}</div>
         ) : (
           <div className="sr-only">Loading...</div>
         )}
