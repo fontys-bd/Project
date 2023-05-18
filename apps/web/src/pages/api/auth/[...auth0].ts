@@ -33,6 +33,8 @@ const afterCallback = async (
     },
   });
 
+  console.log(session);
+
   if (!isUser) {
     const user = await prisma.user
       .create({

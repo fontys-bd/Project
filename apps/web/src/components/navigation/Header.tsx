@@ -25,7 +25,12 @@ export default function Header() {
               }}
             />
           </Link>
-          <Link href={"/"}>LOGOUT HERE</Link>
+          <Link
+            className="rounded-lg bg-white p-4 text-center"
+            href={"/api/auth/logout"}
+          >
+            Logout
+          </Link>
         </div>
       </header>
     </>

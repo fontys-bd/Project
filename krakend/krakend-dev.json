@@ -63,8 +63,7 @@
       "backend": [
         {
           "host": "http://localhost:3002",
-          "url_pattern": "/",
-          "encoding": "json"
+          "url_pattern": "/"
         }
       ]
     }
