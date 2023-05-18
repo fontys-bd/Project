@@ -26,9 +26,7 @@ export default function PostPage() {
         picture_desc,
         anonymous,
         status: "ACTIVE",
-      }).then(async (result) => {
-        console.log(result);
-      });
+      }).then(async (result) => {});
     } else {
       console.error("URL is not defined.");
     }
