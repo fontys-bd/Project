@@ -1,5 +1,5 @@
 const path = require("path");
-require("dotenv").config({ path: "../../.env.local" });
+require("dotenv").config({ path: "../../.env" });
 
 module.exports = {
   reactStrictMode: true,
@@ -8,6 +8,10 @@ module.exports = {
     outputFileTracingRoot: path.join(__dirname, "../../"),
   },
   images: {
-    domains: ["fastly.picsum.photos"],
+    domains: [
+      "fastly.picsum.photos",
+      "myprofilepage.com.au",
+      "blind-date-uploads.s3.eu-north-1.amazonaws.com",
+    ],
   },
 };
