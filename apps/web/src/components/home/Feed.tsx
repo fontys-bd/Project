@@ -64,6 +64,7 @@ export default function Feed({ selectedFilter }: FeedProps) {
           username={post.authorUsername}
           created_at={post.created_at}
           status={post.status}
+          picture={post.picture}
         />
       ))}
     </>
