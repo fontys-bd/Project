@@ -13,7 +13,7 @@
         "Origin"
       ],
       "max_age": "12h",
-      "allow_credentials": false,
+      "allow_credentials": true,
       "debug": false
     },
     "router": {
