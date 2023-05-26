@@ -2,12 +2,18 @@
   "version": 3,
   "extra_config": {
     "security/cors": {
-      "allow_origins": ["*"],
+      "allow_origins": ["http*"],
       "allow_methods": ["GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"],
       "expose_headers": ["Content-Length", "Content-Type"],
-      "allow_headers": ["Accept-Language", "Content-Type", "Authorization", "Accept", "Origin"],
+      "allow_headers": [
+        "Accept-Language",
+        "Content-Type",
+        "Authorization",
+        "Accept",
+        "Origin"
+      ],
       "max_age": "12h",
-      "allow_credentials": false,
+      "allow_credentials": true,
       "debug": false
     },
     "router": {
