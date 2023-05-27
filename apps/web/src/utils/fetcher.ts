@@ -6,7 +6,6 @@ export const fetcher = async (url: string): Promise<any> => {
       Authorization:
         "Bearer " + (await fetch("/api/auth/token").then((res) => res.json())),
     },
-    credentials: "include",
   });
   return await response.json();
 };
