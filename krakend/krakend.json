@@ -2,7 +2,7 @@
   "version": 3,
   "extra_config": {
     "security/cors": {
-      "allow_origins": ["https://blind-date-web.vercel.app"],
+      "allow_origins": ["*"],
       "allow_methods": ["GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"],
       "expose_headers": ["Content-Length", "Content-Type"],
       "allow_headers": [

@@ -15,7 +15,9 @@
         "Content-Type",
         "Authorization",
         "Accept",
-        "Origin"
+        "Origin",
+        "Access-Control-Allow-Origin",
+        "Ngrok-Skip-Browser-Warning"
       ],
       "max_age": "12h",
       "allow_credentials": false,
