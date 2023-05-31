@@ -5,10 +5,18 @@
       "allow_origins": ["*"],
       "allow_methods": ["GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS"],
       "expose_headers": ["Content-Length", "Content-Type"],
-      "allow_headers": ["Accept-Language", "Content-Type", "Authorization", "Accept", "Origin"],
+      "allow_headers": [
+        "Accept-Language",
+        "Content-Type",
+        "Authorization",
+        "Accept",
+        "Origin",
+        "Access-Control-Allow-Origin",
+        "Ngrok-Skip-Browser-Warning"
+      ],
       "max_age": "12h",
-      "allow_credentials": false,
-      "debug": false
+      "allow_credentials": true,
+      "debug": true
     },
     "router": {
       "auto_options": true
@@ -25,8 +33,36 @@
           "url_pattern": "/",
           "encoding": "json"
         }
-      ]
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": ["https://dev-5citnzhh5o3wou8l.eu.auth0.com/api/v2/"],
+          "jwk_url": "https://dev-5citnzhh5o3wou8l.eu.auth0.com/.well-known/jwks.json"
+        }
+      }
     },
+
+    {
+      "endpoint": "/post/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": "http://post-service:3003",
+          "method": "GET",
+          "url_pattern": "/{id}",
+          "encoding": "json"
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": ["https://dev-5citnzhh5o3wou8l.eu.auth0.com/api/v2/"],
+          "jwk_url": "https://dev-5citnzhh5o3wou8l.eu.auth0.com/.well-known/jwks.json"
+        }
+      }
+    },
+
     {
       "endpoint": "/post",
       "method": "POST",
@@ -37,67 +73,84 @@
           "url_pattern": "/",
           "encoding": "json"
         }
-      ]
-    },
-    {
-      "endpoint": "/comment",
-      "method": "GET",
-      "backend": [
-        {
-          "host": "http://comment-service:3004",
-          "method": "GET",
-          "url_pattern": "/",
-          "encoding": "json"
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": ["https://dev-5citnzhh5o3wou8l.eu.auth0.com/api/v2/"],
+          "jwk_url": "https://dev-5citnzhh5o3wou8l.eu.auth0.com/.well-known/jwks.json"
         }
-      ]
+      }
     },
+
     {
       "endpoint": "/comment",
-      "method": "POST",
       "backend": [
         {
           "host": "http://comment-service:3004",
           "url_pattern": "/",
-          "method": "POST",
           "encoding": "json"
         }
-      ]
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": ["https://dev-5citnzhh5o3wou8l.eu.auth0.com/api/v2/"],
+          "jwk_url": "https://dev-5citnzhh5o3wou8l.eu.auth0.com/.well-known/jwks.json"
+        }
+      }
     },
     {
       "endpoint": "/comment/byPostID/{id}",
-      "method": "GET",
       "backend": [
         {
           "host": "http://comment-service:3004",
-          "method": "GET",
           "url_pattern": "/byPostID/{id}",
           "encoding": "json"
         }
-      ]
-    },
-    {
-      "endpoint": "/user",
-      "method": "GET",
-      "backend": [
-        {
-          "host": "http://user-service:3002",
-          "method": "GET",
-          "url_pattern": "/",
-          "encoding": "json"
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": ["https://dev-5citnzhh5o3wou8l.eu.auth0.com/api/v2/"],
+          "jwk_url": "https://dev-5citnzhh5o3wou8l.eu.auth0.com/.well-known/jwks.json"
         }
-      ]
+      }
     },
     {
-      "endpoint": "/user",
+      "endpoint": "/comment",
       "method": "POST",
       "backend": [
         {
-          "host": "http://user-service:3002",
-          "method": "POST",
+          "host": "http://comment-service:3004",
           "url_pattern": "/",
+          "method": "POST",
           "encoding": "json"
         }
-      ]
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": ["https://dev-5citnzhh5o3wou8l.eu.auth0.com/api/v2/"],
+          "jwk_url": "https://dev-5citnzhh5o3wou8l.eu.auth0.com/.well-known/jwks.json"
+        }
+      }
+    },
+    {
+      "endpoint": "/user",
+      "backend": [
+        {
+          "host": "http://user-service:3002",
+          "url_pattern": "/"
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": ["https://dev-5citnzhh5o3wou8l.eu.auth0.com/api/v2/"],
+          "jwk_url": "https://dev-5citnzhh5o3wou8l.eu.auth0.com/.well-known/jwks.json"
+        }
+      }
     }
   ]
 }

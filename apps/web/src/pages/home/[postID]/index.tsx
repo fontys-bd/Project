@@ -1,18 +1,32 @@
-import Post from "@/components/post/Post";
 import { useRouter } from "next/router";
+
+import Post from "@/components/post/Post";
 import PostLayout from "@/layouts/PostLayout";
 import Comment from "@/components/post/Comment";
-import { prisma } from "@/server/db";
+import { GetPostById } from "@/hooks/GetPostById";
 import { PostSchema } from "@/types/post";
 
-export default function PostPage({ post }: { post: PostSchema }) {
+export default function PostPage() {
+  const router = useRouter();
+  const { postID } = router.query;
+
+  // Fetch the post using the postID
+  const { data: post, isLoading, error } = GetPostById(postID as string);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error || !post) {
+    return <div>Error: {error ? error.message : "Post not found"}</div>;
+  }
+
   return (
     <div className="shadow-lg">
       <section>
-        <Post post={post} />
+        <Post post={post.post} />
       </section>
-
-      <Comment postID={post.id} />
+      <Comment postID={post.post.id} />
     </div>
   );
 }
@@ -20,44 +34,3 @@ export default function PostPage({ post }: { post: PostSchema }) {
 PostPage.GetLayout = function GetLayout(page: React.ReactNode) {
   return <PostLayout>{page}</PostLayout>;
 };
-
-export async function getStaticPaths() {
-  const ids = await prisma.post.findMany({
-    select: {
-      id: true,
-    },
-  });
-
-  // Make id array into params array of objects
-  // [{ params: { id: "1" } }, { params: { id: "2" } }]
-
-  let params = [];
-  for (const _ of ids) {
-    params.push({ params: { postID: _.id } });
-  }
-
-  return {
-    paths: params,
-    fallback: "blocking",
-  };
-}
-
-// This also gets called at build time
-export async function getStaticProps({ params }: any) {
-  let post = await prisma.post.findFirst({
-    where: {
-      id: params.postID,
-    },
-  });
-
-  // Make everything into primitve types - Next/SWC doesn't like Prisma types/Dates
-  post = JSON.parse(JSON.stringify(post));
-
-  // Pass post data to the page via props
-  return {
-    props: { post },
-    // Re-generate the post at most once per second
-    // if a request comes in
-    revalidate: 60,
-  };
-}
