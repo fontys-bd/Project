@@ -13,6 +13,11 @@ export async function GetPostById(id: string) {
   return post;
 }
 
+export async function PostReact(obj: any) {
+  const reaction = await prisma.PostReact(obj);
+  return reaction;
+}
+
 export async function CreatePost(data: CreatePostSchema) {
   const now = new Date();
   const postData: CreatePostSchema = {

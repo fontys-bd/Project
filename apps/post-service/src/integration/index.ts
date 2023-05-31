@@ -20,6 +20,24 @@ export async function GetPostById(id: string) {
   return post;
 }
 
+export async function PostReact(obj: any) {
+  const reaction = await prisma.PostReact.upsert({
+    where: {
+      postID_userID: {
+        postID: obj.postID,
+        userID: obj.userID,
+      },
+    },
+    update: {
+      reaction: obj.reaction,
+    },
+  })
+    .then((res: any) => res)
+    .catch((err: any) => console.log(err));
+
+  return reaction;
+}
+
 export async function CreatePost(data: CreatePostSchema) {
   const post = await prisma.post.create({ data: data }).catch((e: Error) => {
     console.log("error", e);

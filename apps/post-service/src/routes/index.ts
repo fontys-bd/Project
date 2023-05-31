@@ -20,6 +20,14 @@ export const postRouter = () => {
     }
     return res.json({ post });
   });
+
+  router.post("/react", async (req, res) => {
+    const reaction = await service.PostReact(req.body);
+    if (!reaction) {
+      return res.status(404).json({ message: "reaction not found" });
+    }
+    return res.json({ reaction });
+  });
   // Dynamic routes
   router
     .route("/:id")

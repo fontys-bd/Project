@@ -23,6 +23,14 @@ export const CommentRouter = () => {
     }
   });
 
+  router.post("/react", async (req, res) => {
+    const reaction = await service.CommentReact(req.body);
+    if (!reaction) {
+      return res.status(404).json({ message: "reaction not created" });
+    }
+    return res.json({ reaction });
+  });
+
   router.post("/", async (req, res) => {
     const comment = await service.CreateComment(req.body);
     if (!comment) {
