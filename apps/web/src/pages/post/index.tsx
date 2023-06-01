@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import post from "src/utils/post";
 import Image from "next/image";
 import { env } from "@/env.mjs";
+import { useRouter } from "next/router";
 
 export default function PostPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -18,9 +19,9 @@ export default function PostPage() {
     setPostedAnonymously(true);
   };
 
-  const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ): Promise<void> => {
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
 
     const URL = env.NEXT_PUBLIC_GATEWAY + "/post";
@@ -42,7 +43,13 @@ export default function PostPage() {
 
     try {
       await post(URL, formData);
-      // Handle the result as needed
+    // Handle the result as needed
+
+    // Redirect to home page
+    router.push("/home");
+
+    // Display success alert
+    alert("Post successfully created");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -68,7 +75,7 @@ export default function PostPage() {
   return (
     <article>
       <main>
-        <p className="py-7 text-center text-2xl ">CREATE POST</p>
+        <p className="py-7 text-center text-2xl">CREATE POST</p>
         <hr className="border border-black" />
         <form className="pt-3" method="post" onSubmit={handleSubmit}>
           <section>
@@ -106,12 +113,8 @@ export default function PostPage() {
                 />
                 <section className="z-1 absolute top-0 flex h-full w-full items-center justify-center bg-slate-50">
                   <div className="flex flex-col">
-                    <p className="text-xl">
-                      Drag image here or click to select file
-                    </p>
-                    <p className="text-sm">
-                      Attach an image file, not exceeding 5MB in size
-                    </p>
+                    <p className="text-xl">Drag image here or click to select file</p>
+                    <p className="text-sm">Attach an image file, not exceeding 5MB in size</p>
                   </div>
                 </section>
               </section>
@@ -153,25 +156,19 @@ export default function PostPage() {
           <div>
             <div className="mt-3">
               <div className="flex">
-                <p className="ml-2 mr-4 text-sm font-medium">
-                  Post anonymously
-                </p>
+                <p className="ml-2 mr-4 text-sm font-medium">Post anonymously</p>
                 <button
                   type="button"
-                  className={`${
-                    anonymous ? "bg-[#3B81F6]" : "bg-gray-200"
-                  } mr-5 h-6 w-11 rounded-full`}
+                  className={`${anonymous ? "bg-[#3B81F6]" : "bg-gray-200"
+                    } mr-5 h-6 w-11 rounded-full`}
                   onClick={() => handleToggleAnonymity(true)}
                 >
                   YES
                 </button>
                 <button
                   type="button"
-                  className={`${
-                    !anonymous && postedAnonymously
-                      ? "bg-[#3B81F6]"
-                      : "bg-gray-200"
-                  } h-6 w-11 rounded-full`}
+                  className={`${!anonymous && postedAnonymously ? "bg-[#3B81F6]" : "bg-gray-200"
+                    } h-6 w-11 rounded-full`}
                   onClick={() => handleToggleAnonymity(false)}
                 >
                   NO
@@ -181,11 +178,10 @@ export default function PostPage() {
             <hr className="my-6 border border-black" />
             <button
               type="submit"
-              className={`mb-6 h-14 w-full rounded-3xl ${
-                postedAnonymously
+              className={`mb-6 h-14 w-full rounded-3xl ${postedAnonymously
                   ? "bg-[#3B81F6] text-white"
                   : "cursor-not-allowed bg-gray-300 text-gray-500"
-              } text-2xl font-normal`}
+                } text-2xl font-normal`}
               disabled={!anonymous && !postedAnonymously}
             >
               ADD POST

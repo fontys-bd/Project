@@ -20,22 +20,40 @@ export async function GetCommentById(id: string) {
 }
 
 export async function CommentReact(obj: any) {
-  const reaction = await prisma.CommentReact.upsert({
-    where: {
-      commentID_userID: {
-        commentID: obj.commentID,
-
-        userID: obj.userID,
+  const reaction = await prisma.commentReaction
+    .upsert({
+      where: {
+        commentId_userId: {
+          commentId: obj.commentId,
+          userId: obj.userId,
+        },
       },
-    },
-    update: {
-      reaction: obj.reaction,
-    },
-  })
+
+      update: {
+        reaction: obj.reaction,
+      },
+      create: {
+        commentId: obj.commentId,
+        userId: obj.userId,
+        reaction: obj.reaction,
+      },
+    })
     .then((res: any) => res)
     .catch((err: any) => console.log(err));
-
   return reaction;
+}
+
+export async function GetReactionsByCommentId(id: string) {
+  const reactions = await prisma.commentReaction
+    .findMany({
+      where: {
+        commentId: id,
+      },
+    })
+    .catch(() => {
+      return null;
+    });
+  return reactions;
 }
 
 export async function GetCommentsByPostId(id: string) {

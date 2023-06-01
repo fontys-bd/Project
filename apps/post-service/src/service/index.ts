@@ -73,6 +73,11 @@ export async function PostReact(obj: any) {
   return reaction;
 }
 
+export async function GetReactionsByPostId(id: string) {
+  const reactions = await prisma.GetReactionsByPostId(id);
+  return reactions;
+}
+
 export async function CreatePost(data: CreatePostSchema, file: any) {
   const now = new Date();
   let imageName;

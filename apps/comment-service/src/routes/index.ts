@@ -31,6 +31,14 @@ export const CommentRouter = () => {
     return res.json({ reaction });
   });
 
+  router.get("/reactions/:id", async (req, res) => {
+    const reactions = await service.GetReactionsByCommentId(req.params.id);
+    if (!reactions) {
+      return res.status(404).json({ message: "reactions not found" });
+    }
+    return res.json({ reactions });
+  });
+
   router.post("/", async (req, res) => {
     const comment = await service.CreateComment(req.body);
     if (!comment) {

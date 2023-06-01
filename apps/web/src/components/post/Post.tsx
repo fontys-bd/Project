@@ -1,16 +1,16 @@
 import Image from "next/image";
 import PostFooter from "./PostFooter";
 import { PostSchema } from "@/types/post";
+import { GetReactionsByPostId } from "@/hooks/GetReactionsByPostId";
 
 export default function Post({ post }: { post: PostSchema }) {
   return (
     <article>
       <p className="flex gap-4 border-b p-4">
-        <span>
-          <span className="font-bold">Asked on </span>
-          {new Intl.DateTimeFormat("nl-NL").format(new Date())}
+        <span> Asked on
+          <span className="font-bold"> {new Intl.DateTimeFormat("nl-NL").format(new Date())}</span>
         </span>
-        <span>Posted by User</span>
+        <span>Posted by: User</span>
         <span>
           Status: <span className=" font-bold text-green-600">ACTIVE</span>
         </span>
@@ -35,7 +35,7 @@ export default function Post({ post }: { post: PostSchema }) {
           />
         )}
       </main>
-      <PostFooter />
+      <PostFooter postId={post.id} />
     </article>
   );
 }
