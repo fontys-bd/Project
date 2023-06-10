@@ -11,6 +11,9 @@ export const createServer = () => {
     .use(urlencoded({ extended: true }))
     .use(json())
     .use(cors())
+    .get("/message/:name", (req, res) => {
+      return res.json({ message: `hello ${req.params.name}` });
+    })
     .get("/healthz", (req, res) => {
       res.set("Cache-Control", "s-maxage=600");
       return res.json({ ok: true });
