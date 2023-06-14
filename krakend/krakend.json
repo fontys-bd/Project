@@ -44,6 +44,46 @@
     },
 
     {
+      "endpoint": "/post/reactions/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": "http://localhost:3003",
+          "method": "GET",
+          "url_pattern": "/reactions/{id}",
+          "encoding": "json"
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": ["https://dev-5citnzhh5o3wou8l.eu.auth0.com/api/v2/"],
+          "jwk_url": "https://dev-5citnzhh5o3wou8l.eu.auth0.com/.well-known/jwks.json"
+        }
+      }
+    },
+
+    {
+      "endpoint": "/post/react",
+      "method": "POST",
+      "backend": [
+        {
+          "host": "http://post-service:3003",
+          "method": "POST",
+          "url_pattern": "/react",
+          "encoding": "json"
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": ["https://dev-5citnzhh5o3wou8l.eu.auth0.com/api/v2/"],
+          "jwk_url": "https://dev-5citnzhh5o3wou8l.eu.auth0.com/.well-known/jwks.json"
+        }
+      }
+    },
+
+    {
       "endpoint": "/post/{id}",
       "method": "GET",
       "backend": [
@@ -106,6 +146,44 @@
         {
           "host": "http://comment-service:3004",
           "url_pattern": "/byPostID/{id}",
+          "encoding": "json"
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": ["https://dev-5citnzhh5o3wou8l.eu.auth0.com/api/v2/"],
+          "jwk_url": "https://dev-5citnzhh5o3wou8l.eu.auth0.com/.well-known/jwks.json"
+        }
+      }
+    },
+    {
+      "endpoint": "/comment/react",
+      "method": "POST",
+      "backend": [
+        {
+          "host": "http://comment-service:3004",
+          "method": "POST",
+          "url_pattern": "/react",
+          "encoding": "json"
+        }
+      ],
+      "extra_config": {
+        "auth/validator": {
+          "alg": "RS256",
+          "audience": ["https://dev-5citnzhh5o3wou8l.eu.auth0.com/api/v2/"],
+          "jwk_url": "https://dev-5citnzhh5o3wou8l.eu.auth0.com/.well-known/jwks.json"
+        }
+      }
+    },
+    {
+      "endpoint": "/comment/reactions/{id}",
+      "method": "GET",
+      "backend": [
+        {
+          "host": "http://comment-service:3004",
+          "method": "GET",
+          "url_pattern": "/reactions/{id}",
           "encoding": "json"
         }
       ],
