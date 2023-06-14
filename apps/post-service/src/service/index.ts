@@ -107,7 +107,7 @@ export async function CreatePost(data: CreatePostSchema, file: any) {
     ...data,
     created_at: now,
     updated_at: now,
-    userID: "642abeeb6e7160c651969049",
+    userEmail: data.userEmail,
     picture: imageName || null,
     anonymous: isAnonymous as boolean,
   };

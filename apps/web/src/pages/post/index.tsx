@@ -4,6 +4,7 @@ import post from "src/utils/post";
 import Image from "next/image";
 import { env } from "@/env.mjs";
 import { useRouter } from "next/router";
+import { useUser } from "@auth0/nextjs-auth0/client"
 
 export default function PostPage() {
   const [file, setFile] = useState<File | null>(null);
@@ -13,6 +14,9 @@ export default function PostPage() {
   const [content, setContent] = useState<string>("");
   const [picture_desc, setImageDescription] = useState<string>("");
   const [postedAnonymously, setPostedAnonymously] = useState(false);
+  const user = useUser();
+
+  console.log(user.user);
 
   const handleToggleAnonymity = (value: boolean) => {
     setAnonymous(value);
@@ -36,6 +40,7 @@ export default function PostPage() {
     formData.append("picture_desc", picture_desc);
     formData.append("anonymous", anonymous.toString());
     formData.append("status", "ACTIVE");
+    formData.append("userEmail", user.user!.email!);
 
     if (file) {
       formData.append("file", file);
@@ -43,13 +48,13 @@ export default function PostPage() {
 
     try {
       await post(URL, formData);
-    // Handle the result as needed
+      // Handle the result as needed
 
-    // Redirect to home page
-    router.push("/home");
+      // Redirect to home page
+      router.push("/home");
 
-    // Display success alert
-    alert("Post successfully created");
+      // Display success alert
+      alert("Post successfully created");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -179,8 +184,8 @@ export default function PostPage() {
             <button
               type="submit"
               className={`mb-6 h-14 w-full rounded-3xl ${postedAnonymously
-                  ? "bg-[#3B81F6] text-white"
-                  : "cursor-not-allowed bg-gray-300 text-gray-500"
+                ? "bg-[#3B81F6] text-white"
+                : "cursor-not-allowed bg-gray-300 text-gray-500"
                 } text-2xl font-normal`}
               disabled={!anonymous && !postedAnonymously}
             >

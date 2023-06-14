@@ -45,7 +45,7 @@ export const userRouter = () => {
       }
       return res.json({ user });
     });
-
+    
   // Middleware for dynamic routes
   router.param("id", (req, res, next, id) => {
     next();

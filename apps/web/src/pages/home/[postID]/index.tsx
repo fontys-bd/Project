@@ -8,25 +8,20 @@ import { PostSchema } from "@/types/post";
 
 export default function PostPage() {
   const router = useRouter();
+  const isReady = router.isReady;
+
+  if (!isReady) {
+    return <div>Loading...</div>
+  }
+
   const { postID } = router.query;
-
-  // Fetch the post using the postID
-  const { data: post, isLoading, error } = GetPostById(postID as string);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error || !post) {
-    return <div>Error: {error ? error.message : "Post not found"}</div>;
-  }
 
   return (
     <div className="shadow-lg">
       <section>
-        <Post post={post.post} />
+        <Post postID={postID as string} />
       </section>
-      <Comment postID={post.post.id} />
+      <Comment postID={postID as string} />
     </div>
   );
 }

@@ -58,13 +58,7 @@ export default function Feed({ selectedFilter }: FeedProps) {
     <>
       {sortedPosts.map((post) => (
         <PostPreview
-          key={post.id}
-          id={post.id}
-          title={post.title}
-          username={post.authorUsername}
-          created_at={post.created_at}
-          status={post.status}
-          picture={post.picture}
+          post={post} key={post}
         />
       ))}
     </>

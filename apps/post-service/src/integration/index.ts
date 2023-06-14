@@ -3,7 +3,12 @@ import { PrismaClient } from "database";
 const prisma = new PrismaClient();
 
 export async function GetPosts() {
-  const res = await prisma.post.findMany();
+  const res = await prisma.post.findMany({
+    include: {
+      author: true,
+    }
+  }
+  );
   return res;
 }
 
@@ -13,6 +18,9 @@ export async function GetPostById(id: string) {
       where: {
         id: id,
       },
+      include: {
+        author: true,
+      },
     })
     .catch(() => {
       return null;
@@ -21,7 +29,21 @@ export async function GetPostById(id: string) {
 }
 
 export async function CreatePost(data: CreatePostSchema) {
-  const post = await prisma.post.create({ data: data }).catch((e: Error) => {
+  const user = await prisma.user.findUnique({
+    where: {
+      email: data.userEmail
+    },
+  });
+  const post = await prisma.post.create({
+    data: {
+      title: data.title,
+      content: data.content,
+      picture_desc: data.picture_desc,
+      anonymous: data.anonymous,
+      status: data.status,
+      userID: user?.id,
+    }
+  }).catch((e: Error) => {
     console.log("error", e);
     return null;
   });
