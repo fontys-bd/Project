@@ -57,9 +57,7 @@ export default function Feed({ selectedFilter }: FeedProps) {
   return (
     <>
       {sortedPosts.map((post) => (
-        <PostPreview
-          post={post} key={post}
-        />
+        <PostPreview post={post} key={post} />
       ))}
     </>
   );

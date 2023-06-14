@@ -7,6 +7,7 @@ import { env } from "@/env.mjs";
 import { useUser } from "@auth0/nextjs-auth0/client";
 import reactToComment from "@/utils/reactToComment";
 import { GetReactionsByCommentId } from "@/hooks/GetReactionsByCommentId";
+import CommentFooter from "./CommentFooter";
 
 export default function Comment({ postID }: { postID: string }) {
   const URL = env.NEXT_PUBLIC_GATEWAY + `/comment/byPostID/${postID}`;
@@ -14,8 +15,8 @@ export default function Comment({ postID }: { postID: string }) {
   const user = useUser();
   const [content, setContent] = useState("");
 
-  if (isLoading) return (<div>Loading...</div>)
-  if (error) return (<div>Error...</div>)
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error...</div>;
 
   const submitComment = async (
     e: React.FormEvent<HTMLFormElement>
@@ -28,24 +29,6 @@ export default function Comment({ postID }: { postID: string }) {
       userEmail: user.user?.email,
       postID,
     });
-
-    mutate();
-  };
-
-  const handleReaction = async (reaction: string, commentId: string) => {
-    const URL = env.NEXT_PUBLIC_GATEWAY + "/comment/react";
-
-    const data = {
-      commentId: commentId,
-      userEmail: user.user!.email,
-      reaction: reaction,
-    };
-
-    try {
-      await reactToComment(URL, data); // Pass the data object to the react function
-    } catch (error) {
-      console.error("Error reacting to post:", error);
-    }
 
     mutate();
   };
@@ -83,7 +66,7 @@ export default function Comment({ postID }: { postID: string }) {
       </form>
       <section>
         {comments ? (
-          comments?.comments.map((comment: any) => {
+          comments?.comments.map((comment: any, index: number) => {
             return (
               <article className="border-1 mb-2 border" key={comment.id}>
                 <header className="flex gap-4 border-b-2 p-2">
@@ -97,10 +80,7 @@ export default function Comment({ postID }: { postID: string }) {
                   </span>
                 </header>
                 <main className="border-b-2 p-2">{comment.content}</main>
-                <footer className="flex gap-4 p-2">
-                  <button onClick={() => handleReaction("LIKE", comment.id)}>Like</button>
-                  <button onClick={() => handleReaction("DISLIKE", comment.id)}>Dislike</button>
-                </footer>
+                <CommentFooter key={index} comment={comment} />
               </article>
             );
           })

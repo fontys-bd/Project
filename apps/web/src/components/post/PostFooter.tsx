@@ -12,12 +12,17 @@ import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function PostFooter(postId: any) {
   const id = postId.postId;
-  const { data: reactions, isLoading, error, mutate } = GetReactionsByPostId(id);
+  const {
+    data: reactions,
+    isLoading,
+    error,
+    mutate,
+  } = GetReactionsByPostId(id);
   const user = useUser();
 
-  if (isLoading) return (<div>Loading...</div>)
+  if (isLoading) return <div>Loading...</div>;
 
-  if (error) return (<div>Error...</div>)
+  if (error) return <div>Error...</div>;
 
   const handleReaction = async (reaction: string) => {
     const URL = env.NEXT_PUBLIC_GATEWAY + "/post/react";
@@ -45,7 +50,10 @@ export default function PostFooter(postId: any) {
     <>
       <footer className="m-4 flex justify-between gap-4 align-middle">
         <div className="flex justify-center gap-4 align-middle">
-          <button className="hover:bg-blue-100" onClick={() => handleReaction("LIKE")}>
+          <button
+            className="hover:bg-blue-100"
+            onClick={() => handleReaction("LIKE")}
+          >
             <FiThumbsUp
               style={{
                 height: "2rem",
@@ -56,7 +64,10 @@ export default function PostFooter(postId: any) {
             />
             {reactions.reactions.likes}
           </button>
-          <button className="hover:bg-blue-100" onClick={() => handleReaction("DISLIKE")}>
+          <button
+            className="hover:bg-blue-100"
+            onClick={() => handleReaction("DISLIKE")}
+          >
             <FiThumbsDown
               style={{
                 height: "2rem",

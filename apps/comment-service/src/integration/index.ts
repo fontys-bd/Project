@@ -1,3 +1,4 @@
+import { ReactionType } from "database";
 import { PrismaClient } from "database";
 const prisma = new PrismaClient();
 
@@ -22,7 +23,7 @@ export async function GetCommentById(id: string) {
 export async function CommentReact(obj: any) {
   const user = await prisma.user.findUnique({
     where: {
-      email: obj.userEmail
+      email: obj.userEmail,
     },
   });
 
@@ -31,16 +32,15 @@ export async function CommentReact(obj: any) {
       where: {
         commentId_userId: {
           commentId: obj.commentId,
-          userId: user.id,
+          userId: user!.id,
         },
       },
-
       update: {
         reaction: obj.reaction,
       },
       create: {
         commentId: obj.commentId,
-        userId: user.id,
+        userId: user!.id,
         reaction: obj.reaction,
       },
     })
@@ -50,16 +50,28 @@ export async function CommentReact(obj: any) {
 }
 
 export async function GetReactionsByCommentId(id: string) {
-  const reactions = await prisma.commentReaction
-    .findMany({
+  try {
+    const likes = await prisma.commentReaction.count({
       where: {
-        commentId: id,
+        commentId: id as string,
+        reaction: ReactionType.LIKE,
       },
-    })
-    .catch(() => {
-      return null;
     });
-  return reactions;
+
+    const dislikes = await prisma.commentReaction.count({
+      where: {
+        commentId: id as string,
+        reaction: ReactionType.DISLIKE,
+      },
+    });
+
+    return {
+      likes: likes,
+      dislikes: dislikes,
+    };
+  } catch (error) {
+    return null;
+  }
 }
 
 export async function GetCommentsByPostId(id: string) {
@@ -70,7 +82,7 @@ export async function GetCommentsByPostId(id: string) {
       },
       include: {
         likes: true,
-        user: true
+        user: true,
       },
     })
     .catch(() => {

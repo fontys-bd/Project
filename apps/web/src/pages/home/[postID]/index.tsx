@@ -11,7 +11,7 @@ export default function PostPage() {
   const isReady = router.isReady;
 
   if (!isReady) {
-    return <div>Loading...</div>
+    return <div>Loading...</div>;
   }
 
   const { postID } = router.query;

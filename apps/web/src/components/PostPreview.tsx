@@ -43,14 +43,9 @@ export default function PostPreview(props: PostProps) {
     displayDate = yearsDiff + " years ago";
   }
 
-  const handleLike = () => {
-    
-    
-  };
+  const handleLike = () => {};
 
-  const handleDislike = () => {
-    
-  };
+  const handleDislike = () => {};
   return (
     <Link href={`/home/${props.post.id}`}>
       <article className="mx-3 mb-3 rounded-xl border border-solid border-gray-200 bg-white px-5 transition ease-in-out hover:border-gray-100 hover:shadow-lg">
@@ -62,7 +57,9 @@ export default function PostPreview(props: PostProps) {
               marginLeft: "0.5rem",
             }}
           />
-          <p className="ml-1 mr-3 text-sm font-bold">{props.post.anonymous ? "Anonymous" : props.post.author.name}</p>
+          <p className="ml-1 mr-3 text-sm font-bold">
+            {props.post.anonymous ? "Anonymous" : props.post.author.name}
+          </p>
           <span className="text-gray-500">{displayDate}</span>
           <span className="ml-auto flex flex-row text-lg">
             <p className="mt-1 flex items-center text-xs">Status:</p>

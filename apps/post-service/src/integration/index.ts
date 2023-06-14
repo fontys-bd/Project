@@ -7,9 +7,8 @@ export async function GetPosts() {
   const res = await prisma.post.findMany({
     include: {
       author: true,
-    }
-  }
-  );
+    },
+  });
   return res;
 }
 
@@ -32,29 +31,31 @@ export async function GetPostById(id: string) {
 export async function CreatePost(data: CreatePostSchema) {
   const user = await prisma.user.findUnique({
     where: {
-      email: data.userEmail
+      email: data.userEmail,
     },
   });
-  const post = await prisma.post.create({
-    data: {
-      title: data.title,
-      content: data.content,
-      picture_desc: data.picture_desc,
-      anonymous: data.anonymous,
-      status: data.status,
-      userID: user?.id,
-    }
-  }).catch((e: Error) => {
-    console.log("error", e);
-    return null;
-  });
+  const post = await prisma.post
+    .create({
+      data: {
+        title: data.title,
+        content: data.content,
+        picture_desc: data.picture_desc,
+        anonymous: data.anonymous,
+        status: data.status,
+        userID: user!.id,
+      },
+    })
+    .catch((e: Error) => {
+      console.log("error", e);
+      return null;
+    });
   return post;
 }
 
 export async function PostReact(obj: any) {
   const user = await prisma.user.findUnique({
     where: {
-      email: obj.userEmail
+      email: obj.userEmail,
     },
   });
 
@@ -63,7 +64,7 @@ export async function PostReact(obj: any) {
       where: {
         postId_userId: {
           postId: obj.postId,
-          userId: user.id,
+          userId: user!.id,
         },
       },
       update: {
@@ -71,7 +72,7 @@ export async function PostReact(obj: any) {
       },
       create: {
         postId: obj.postId,
-        userId: user.id,
+        userId: user!.id,
         reaction: obj.reaction,
       },
     })

@@ -19,10 +19,17 @@ export default function Post({ postID }: { postID: string }) {
   return (
     <article>
       <p className="flex gap-4 border-b p-4">
-        <span> Asked on
-          <span className="font-bold"> {new Intl.DateTimeFormat("nl-NL").format(new Date())}</span>
+        <span>
+          {" "}
+          Asked on
+          <span className="font-bold">
+            {" "}
+            {new Intl.DateTimeFormat("nl-NL").format(new Date())}
+          </span>
         </span>
-        <span>Posted by: {post.anonymous ? "Anonymous" : post.author.name}</span>
+        <span>
+          Posted by: {post.anonymous ? "Anonymous" : post.author.name}
+        </span>
         <span>
           Status: <span className=" font-bold text-green-600">ACTIVE</span>
         </span>

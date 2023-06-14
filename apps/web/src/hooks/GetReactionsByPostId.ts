@@ -11,6 +11,6 @@ export function GetReactionsByPostId(postID: string) {
     data,
     error,
     isLoading,
-    mutate
+    mutate,
   };
 }

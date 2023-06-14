@@ -22,7 +22,7 @@ export const postRouter = () => {
     }
     return res.json({ post });
   });
-  
+
   router.post("/react", async (req, res) => {
     const reaction = await service.PostReact(req.body);
     if (!reaction) {
