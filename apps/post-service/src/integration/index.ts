@@ -1,3 +1,4 @@
+import { ReactionType } from "database";
 import { CreatePostSchema } from "../types/CreatePostSchema";
 import { PrismaClient } from "database";
 const prisma = new PrismaClient();
@@ -51,12 +52,18 @@ export async function CreatePost(data: CreatePostSchema) {
 }
 
 export async function PostReact(obj: any) {
+  const user = await prisma.user.findUnique({
+    where: {
+      email: obj.userEmail
+    },
+  });
+
   const reaction = await prisma.postReaction
     .upsert({
       where: {
         postId_userId: {
           postId: obj.postId,
-          userId: obj.userId,
+          userId: user.id,
         },
       },
       update: {
@@ -64,7 +71,7 @@ export async function PostReact(obj: any) {
       },
       create: {
         postId: obj.postId,
-        userId: obj.userId,
+        userId: user.id,
         reaction: obj.reaction,
       },
     })
@@ -75,17 +82,41 @@ export async function PostReact(obj: any) {
 }
 
 export async function GetReactionsByPostId(id: string) {
-  const reactions = await prisma.postReaction
-    .findMany({
+  try {
+    const likes = await prisma.postReaction.count({
       where: {
-        postId: id,
+        postId: id as string,
+        reaction: ReactionType.LIKE,
       },
-    })
-    .catch(() => {
-      return null;
     });
-  return reactions;
+
+    const dislikes = await prisma.postReaction.count({
+      where: {
+        postId: id as string,
+        reaction: ReactionType.DISLIKE,
+      },
+    });
+
+    return {
+      likes: likes,
+      dislikes: dislikes,
+    };
+  } catch (error) {
+    return null;
+  }
 }
+
+// const reactions = await prisma.postReaction
+//   .findMany({
+//     where: {
+//       postId: id,
+//     },
+//   })
+//   .catch(() => {
+//     return null;
+//   });
+// return reactions;
+// }
 
 export async function UpdatePost(id: string, data: any) {
   const post = await prisma.post

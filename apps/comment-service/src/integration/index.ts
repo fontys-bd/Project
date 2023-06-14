@@ -20,12 +20,18 @@ export async function GetCommentById(id: string) {
 }
 
 export async function CommentReact(obj: any) {
+  const user = await prisma.user.findUnique({
+    where: {
+      email: obj.userEmail
+    },
+  });
+
   const reaction = await prisma.commentReaction
     .upsert({
       where: {
         commentId_userId: {
           commentId: obj.commentId,
-          userId: obj.userId,
+          userId: user.id,
         },
       },
 
@@ -34,7 +40,7 @@ export async function CommentReact(obj: any) {
       },
       create: {
         commentId: obj.commentId,
-        userId: obj.userId,
+        userId: user.id,
         reaction: obj.reaction,
       },
     })
@@ -64,6 +70,7 @@ export async function GetCommentsByPostId(id: string) {
       },
       include: {
         likes: true,
+        user: true
       },
     })
     .catch(() => {
@@ -73,9 +80,19 @@ export async function GetCommentsByPostId(id: string) {
 }
 
 export async function CreateComment(data: any) {
+  const user = await prisma.user.findUnique({
+    where: {
+      email: data.userEmail,
+    },
+  });
+
   const comment = await prisma.comment
     .create({
-      data: data,
+      data: {
+        postID: data.postID,
+        userId: user!.id,
+        content: data.content,
+      },
     })
     .catch(() => {
       return null;

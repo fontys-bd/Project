@@ -6,7 +6,6 @@ export default function Post({ postID }: { postID: string }) {
   // Fetch the post using the postID
   const { data, isLoading, error } = GetPostById(postID as string);
 
-
   if (isLoading) {
     return <div>Loading...</div>;
   }

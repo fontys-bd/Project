@@ -8,25 +8,16 @@ import { useState, useEffect } from "react";
 import { env } from "@/env.mjs";
 import react from "@/utils/react";
 import { GetReactionsByPostId } from "@/hooks/GetReactionsByPostId";
+import { useUser } from "@auth0/nextjs-auth0/client";
 
 export default function PostFooter(postId: any) {
   const id = postId.postId;
-  const { data: reactions, isLoading } = GetReactionsByPostId(id);
-  const [likes, setLikes] = useState(0);
-  const [dislikes, setDislikes] = useState(0);
+  const { data: reactions, isLoading, error, mutate } = GetReactionsByPostId(id);
+  const user = useUser();
 
-  useEffect(() => {
-    if (reactions) {
-      const likesCount = reactions.reactions.filter(
-        (reaction: any) => reaction.reaction === "LIKE"
-      ).length;
-      const dislikesCount = reactions.reactions.filter(
-        (reaction: any) => reaction.reaction === "DISLIKE"
-      ).length;
-      setLikes(likesCount);
-      setDislikes(dislikesCount);
-    }
-  }, [reactions]);
+  if (isLoading) return (<div>Loading...</div>)
+
+  if (error) return (<div>Error...</div>)
 
   const handleReaction = async (reaction: string) => {
     const URL = env.NEXT_PUBLIC_GATEWAY + "/post/react";
@@ -37,7 +28,7 @@ export default function PostFooter(postId: any) {
 
     const data = {
       postId: id,
-      userId: "642abeeb6e7160c651969049", //!CHANGE THIS
+      userEmail: user.user!.email,
       reaction: reaction,
     };
 
@@ -47,7 +38,7 @@ export default function PostFooter(postId: any) {
       console.error("Error reacting to post:", error);
     }
 
-    window.location.reload(); //TODO: Change this
+    mutate();
   };
 
   return (
@@ -63,7 +54,7 @@ export default function PostFooter(postId: any) {
                 marginRight: "0.5rem",
               }}
             />
-            {likes !== undefined ? `${likes} Like` : "Loading..."}
+            {reactions.reactions.likes}
           </button>
           <button className="hover:bg-blue-100" onClick={() => handleReaction("DISLIKE")}>
             <FiThumbsDown
@@ -74,7 +65,7 @@ export default function PostFooter(postId: any) {
                 marginRight: "0.5rem",
               }}
             />
-            {dislikes !== undefined ? `${dislikes} Dislike` : "Loading..."}
+            {reactions.reactions.dislikes}
           </button>
           <button className="hover:bg-blue-100">
             <FiMessageSquare
