@@ -161,9 +161,10 @@ docker compose up
 
 ### Running it on Kubernetes
 
-= Need to add instructions = 
+= Need to add instructions =
 
 ---
+
 <br>
 
 # Repository structure
@@ -174,7 +175,7 @@ The repository is comprised of NodeJS applications, making the whole repository 
 
 It utilizes Turborepo, a high-performance build system for Javascript and Typescript projects. Turborepo allows for cached builds and dependecy sharing between applications, as well as local packages that do not require versioning and/or publishing to npm to use.
 
->Local packages can be found in the `./packages` directory.
+> Local packages can be found in the `./packages` directory.
 
 ### Structure
 
@@ -201,7 +202,7 @@ It utilizes Turborepo, a high-performance build system for Javascript and Typesc
 
 - Front-end - NextJS
 - Authentication - Auth0
-- Gateway - Krakend 
+- Gateway - Krakend
 - Microservices - ExpressJS
 - ORM - Prisma
 - Database - MongoDB
@@ -211,12 +212,15 @@ It utilizes Turborepo, a high-performance build system for Javascript and Typesc
 # Enviroment Variables
 
 ## MongoDB
+
 ```
 DATABASE_URL
 ```
-DATABASE_URL can be found on the [MongoDB official site](https://www.mongodb.com/). After registering and creating a database navigate to *Connect* and you will be provided a connection string for your database. Use that value here.
+
+DATABASE_URL can be found on the [MongoDB official site](https://www.mongodb.com/). After registering and creating a database navigate to _Connect_ and you will be provided a connection string for your database. Use that value here.
 
 ## Auth0
+
 ```
 AUTH0_SECRET
 AUTH0_BASE_URL
@@ -225,9 +229,10 @@ AUTH0_CLIENT_ID
 AUTH0_CLIENT_SECRET
 ```
 
-These values can be found after making an Auth0 account and creating a *Regular Web Application* with the NextJS template. After you have created your application you can find the application specific config [here](https://auth0.com/docs/quickstart/webapp/nextjs/interactive).
+These values can be found after making an Auth0 account and creating a _Regular Web Application_ with the NextJS template. After you have created your application you can find the application specific config [here](https://auth0.com/docs/quickstart/webapp/nextjs/interactive).
 
 ## Client-side accessible URL's
+
 ```
 NEXT_PUBLIC_URL
 NEXT_PUBLIC_GATEWAY
@@ -236,15 +241,17 @@ NEXT_PUBLIC_GATEWAY
 These two consist of the URLs for the front-end application and API Gateway, both of which need to be accessible on the client side of the NextJS application. Both of these run on the default ports locally, NextJS at localhost:3000 and Krakend at localhost:8080.
 
 > Important! All variables used in the front-end should be routed through env.mjs file.
-> Do NOT use proccess.env.VARIABLE directly. The env.mjs ensures that sensitive variables aren't exposed to the client, variables are linted, and that no variables are missing.  
+> Do NOT use proccess.env.VARIABLE directly. The env.mjs ensures that sensitive variables aren't exposed to the client, variables are linted, and that no variables are missing.
 
 ## AWS Bucket
+
 ```
 S3_BUCKET_NAME
 S3_BUCKET_REGION
 S3_ACCESS_KEY
 S3_SECRET_ACCESS_KEY
 ```
+
 These variables are responsible for making file uploads possible to the AWS bucket. They can be found in the settings after creating an S3 Bucket in AWS.
 
 <br>
@@ -255,7 +262,7 @@ The authentication process happens as follows in this diagram.
 
 ![Auth Diagram](/resources/AuthenticationDiagram.png)
 
-After logging in, the application can then request an ID and access token, which are put in each request's Authrization header with the value 'Bearer <*token*>'. After which the Gateway checks the validity of the token with Auth0. If the token is valid then the request is forwarded to the microservices.
+After logging in, the application can then request an ID and access token, which are put in each request's Authrization header with the value 'Bearer <_token_>'. After which the Gateway checks the validity of the token with Auth0. If the token is valid then the request is forwarded to the microservices.
 
 ## Settings up Auth0
 
@@ -269,12 +276,10 @@ The Krakend Gateway setup can be found [here](https://www.krakend.io/docs/author
 
 # Archicture Diagram
 
-To have a better overview of our application, here is a simple diagram that showcases the overall architecture of our applcation. 
+To have a better overview of our application, here is a simple diagram that showcases the overall architecture of our applcation.
 
 ![Architecture Diagram](/resources/Architecture%20DIagram.png)
 
 # Other
 
 Feel free to add anything to this reading guide that you feel like is missing.
-
-
