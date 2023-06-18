@@ -217,7 +217,7 @@ It utilizes Turborepo, a high-performance build system for Javascript and Typesc
 DATABASE_URL
 ```
 
-DATABASE_URL can be found on the [MongoDB official site](https://www.mongodb.com/). After registering and creating a database navigate to _Connect_ and you will be provided a connection string for your database. Use that value here.
+DATABASE*URL can be found on the [MongoDB official site](https://www.mongodb.com/). After registering and creating a database navigate to \_Connect* and you will be provided a connection string for your database. Use that value here.
 
 ## Auth0
 
